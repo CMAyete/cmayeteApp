@@ -45,7 +45,28 @@ module.exports = function(app, express, passport) {
         res.cookie('cmayete', token);
         res.redirect('/meals');
       }else{
-        return res.redirect('/login');
+        var userData;
+        User.findOne({'email':user},function(err,userfound){
+          if(userfound){
+            userData = userfound;
+                        var token = jwt.sign({
+                                  number: userData.number,
+                                  isLogged: true,
+                                  email: userData.email,
+                                  admin: userData.admin,
+                                  meals: userData.meals,
+                                  library: userData.library,
+                                  },
+                                  secret,{
+                                    expiresIn: 11520 // expires in 8 days
+                                  });
+
+            res.cookie('cmayete', token);
+            res.redirect('/meals');  
+          }else{
+            res.redirect('/login');
+          }
+        });
       }
     })(req, res, next);
   });
@@ -62,7 +83,15 @@ module.exports = function(app, express, passport) {
         });      
         } else { 
           req.decoded = decoded;
-          next(); 
+          User.findOne({'email':req.decoded.email},function(err,userfound){
+          if(userfound || req.decoded.email == defaultUserMail){
+            next();
+          }else{
+            return res.status(403).send({ 
+              success: false, 
+              message: 'Invalid User' 
+            });
+          }})
         }
       });
     }else {
