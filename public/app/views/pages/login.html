@@ -1,0 +1,21 @@
+<md-card>
+  <md-card-content>
+    <h2 class="md-title">Colegio Mayor Ayete</h2>
+    <form ng-submit="">
+      <md-input-container flex>
+        <label>Contraseña</label>
+          <input type="password" class="form-control" n>
+          <div >
+            <div ng-message="required">{{ login.error }}</div>
+          </div>
+      </md-input-container>
+      <md-button ng-if="!login.processing" type="submit" class="md-raised md-primary" aria-label="Acceder">
+        <span>Acceder</span>
+      </md-button>
+      <md-button ng-click="login.goLogIn()" class="md-raised md-warn" aria-label="Acceder">
+      <span class="fa fa-google-plus"></span> Google</md-button>
+      </md-button>
+      <md-progress-circular ng-if="login.processing" md-mode="indeterminate"></md-progress-circular>
+    </form>
+  </md-card-content>
+</md-card>

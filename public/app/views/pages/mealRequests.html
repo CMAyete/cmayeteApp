@@ -1,0 +1,27 @@
+<md-card>
+  <md-card-content ng-init="meals.getMeals()">
+
+    <md-button id="MealsButton" class="md-raised md-warn" aria-label="Actualizar" ng-click="meals.NewDate()">
+      <span>Actualizar fecha</span>
+    </md-button>
+    <md-datepicker ng-model="" md-placeholder="Fecha">
+    </md-datepicker>
+
+    <md-list>
+      <md-subheader class="md-no-sticky">Listado</md-subheader>
+
+      <md-list-item class="md-3-line" ng-repeat="request in meals.requests| orderBy:'date'">
+        <div class="md-list-item-text">
+        <h3><b>{{ request.id }}</b></h3>
+        <h4>{{ request.change }}</h4>
+        <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
+        </div>
+        <md-button class="md-warn" ng-click="meals.deleteRequest(request._id)">Borrar</md-button>
+      </md-list-item>
+
+      <md-divider ></md-divider>
+
+    </md-list>
+
+  </md-card-content>
+</md-card>

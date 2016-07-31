@@ -1,0 +1,57 @@
+<md-card>
+  <md-card-content ng-init="settings.getUsers()">
+    <form ng-submit="settings.send()">
+
+          <md-input-container >
+            <label>Nombre</label>
+            <input ng-model="settings.user.Name" required>
+          </md-input-container>
+          <md-input-container>
+            <label>e-mail</label>
+            <input ng-model="settings.user.Email" required>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Número</label>
+            <input name="number" ng-model="settings.user.Number" required ng-pattern="/^[0-9]*$/">
+          </md-input-container>
+
+          <div class="standard">
+              <label>
+                <input type="checkbox" ng-checked="settings.isChecked('Admin')" ng-click="settings.toggle('Admin')"/>
+                Administrador
+              </label>
+              <label>
+                <input type="checkbox" ng-checked="settings.isChecked('Meals')" ng-click="settings.toggle('Meals')"/>
+                Comidas
+              </label>
+              <label>
+                <input type="checkbox" ng-checked="settings.isChecked('Library')" ng-click="settings.toggle('Library')"/>
+                Biblioteca
+              </label>
+          </div>
+
+        <md-button type="submit" class="md-raised md-primary" aria-label="Enviar">Primary</md-button>
+    </form>
+  </md-card-content>
+</md-card>
+
+
+<md-card>
+  <md-card-content>
+    <h2>Lista de usuarios</h2>
+    <md-divider ></md-divider>
+      <md-list-item class="md-3-line" ng-repeat="user in settings.users| orderBy:'name'">
+        <div class="md-list-item-text">
+          <h3><b>{{ user.number }}</b></h3>
+          <h4>{{ user.name }}</h4>
+          <p>{{ user.email}}</p>
+          <p>{{ user.admin}}</p>
+          <p>{{ user.meals}}</p>
+          <p>{{ user.library}}</p>
+          <p>{{ user._id}}</p>
+        </div>
+        <md-button class="md-warn" ng-click="settings.deleteUser(user._id)">Borrar</md-button>
+      </md-list-item>
+  </md-card-content>
+</md-card>

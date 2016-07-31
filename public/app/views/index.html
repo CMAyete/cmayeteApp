@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CM Ayete</title>
+
+  <!-- FOR ANGULAR ROUTING -->
+  <base href="/">
+
+  <!-- Mobile Web App -->
+   <meta name="viewport" content="width=device-width">
+   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <link rel="icon" sizes="192x192" href="/launcher-icon-4x.png">
+
+
+  <!-- JS -->
+  <!-- load angular and angular-route via CDN -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc.5/angular-material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+  <meta name="viewport" content="initial-scale=1" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc.5/angular-material.min.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+
+
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.min.js"></script>
+
+
+
+
+  <!-- controllers -->
+  <script src="app/controllers/mainController.js"></script>
+  <script src="app/controllers/mealController.js"></script>
+  <script src="app/controllers/settingsController.js"></script>
+  <script src="app/controllers/booksController.js"></script>
+
+  <!-- services -->
+  <script src="app/services/authService.js"></script>
+  <script src="app/services/mealService.js"></script>
+  <script src="app/services/settingsService.js"></script>
+  <script src="app/services/bookService.js"></script>
+
+  <!-- main Angular app files -->
+  <script src="app/app.routes.js"></script>
+  <script src="app/app.js"></script>
+
+  <!-- CSS  -->
+  <!-- load bootstrap from CDN and custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body ng-app="cmayete" ng-controller="MainController as main" ng-class="{landing: !userData.isLogged, normal:userData.isLogged}" ng-cloak>
+
+<!-- NAVBAR -->
+<md-toolbar ng-if="userData.isLogged">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>CMAyete</span>
+    </h2>
+    <span flex></span>
+    <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
+  </div>
+</md-toolbar>
+
+<main ng-class="{login: !userData.isLogged, all: userData.isLogged}">
+  <!-- ANGULAR VIEWS -->
+  <div ng-view>
+    <md-content>
+      <!--Here comes the view -->
+    </md-content>
+  </div>
+</main>
+
+</body>
+</html>
