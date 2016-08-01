@@ -1,7 +1,6 @@
 <md-card>
   <md-card-content ng-init="meals.myMeals()">
     <form ng-submit="meals.askMeal()">
-
       <md-input-container>
         <label>Introduce tu número</label>
         <input name="clientName" type="number" ng-model="meals.mealAsked.id">
@@ -16,7 +15,7 @@
             </md-select>
           </md-input-container>
 
-          <md-datepicker ng-model="meals.mealAsked.date" md-placeholder="Fecha">
+          <md-datepicker md-min-date="meals.currentDate" ng-model="meals.mealAsked.date" md-placeholder="Fecha">
           </md-datepicker>
 
         <md-button type="submit" id="MealsButton" class="md-raised" ng-class="meals.MealError ? 'md-warn' : 'md-primary'" aria-label="Enviar">

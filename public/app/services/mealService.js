@@ -12,8 +12,14 @@ angular.module('MealService', [])
 
   // get user meal
   MealFactory.mine = function(id) {
-    return $http.get('/api/meals/' + id);
+    return $http.get('/api/userMeals/' + id);
   };
+
+  // get user meal
+  MealFactory.inDay = function(pickDate) {
+    return $http.get('/api/meals/' + pickDate);
+  };
+
 
   // make a new change
   MealFactory.create = function(MealData) {
@@ -22,7 +28,6 @@ angular.module('MealService', [])
 
   // delete a meal
   MealFactory.delete = function(id) {
-    console.log("Aqui");
     return $http.delete('/api/meals/' + id);
   };
 

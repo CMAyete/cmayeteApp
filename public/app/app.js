@@ -1,8 +1,14 @@
-angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService'])
+angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter'])
 
-.config(function ($httpProvider) {
-  console.log("Aqui");
+.config(function ($httpProvider,$mdDateLocaleProvider) {
   $httpProvider.interceptors.push('authInterceptor');
+  $mdDateLocaleProvider.formatDate = function(date) {
+   return date ? moment(date).format('DD-MM-YYYY') : '';
+  };
+  $mdDateLocaleProvider.parseDate = function(dateString) {
+   var m = moment(dateString, 'DD-MM-YYYY', true);
+   return m.isValid() ? m.toDate() : new Date(NaN);
+  };
 })
 
 .run(function ($rootScope, $location) {

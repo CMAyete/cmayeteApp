@@ -4,6 +4,7 @@ angular.module('mealCtrl',[])
 
   var Meals = {};
   var vm=this;
+  vm.pickDate = new Date();
 
   vm.possibleRequests = [
     { id: 'NoD', name: 'Tachar el desayuno' },
@@ -46,7 +47,7 @@ angular.module('mealCtrl',[])
         vm.processing = false;
         vm.mealButtontext = 'Enviado';
         vm.myMeals();
-      }).error(function(){
+      }).error(function() {
         vm.processing = false;
         vm.mealButtontext = 'Error';
         vm.mealError = true;
@@ -69,9 +70,9 @@ angular.module('mealCtrl',[])
       });
   }
 
-  vm.getMeals = function() {
-    Meal.all()
-      .success(function(data) {
+  vm.getMeals = function(date) {
+    Meal.inDay(date)
+      .success(function(data){
         vm.processing = false;
         vm.requests = data;
       });
@@ -112,5 +113,4 @@ angular.module('mealCtrl',[])
         vm.currentDate = data;
       });
   };
-
 });

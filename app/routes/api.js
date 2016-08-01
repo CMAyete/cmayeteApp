@@ -136,12 +136,10 @@ module.exports = function(app, express, passport) {
       });
     });
 
-  // Routes that end in /users/:user_id
-  // ----------------------------------------------------
-  apiRouter.route('/meals/:meal_id')
+  apiRouter.route('/meals/:meal_date')
     .get(function(req, res) {
       Meal.find({
-        id: req.params.meal_id
+        date: req.params.meal_date
       },function(err, meals) {
           if (err) res.send(err);
             if (err){
@@ -166,6 +164,21 @@ module.exports = function(app, express, passport) {
           });
         });
     });
+
+  apiRouter.route('/userMeals/:meal_id')
+    .get(function(req, res) {
+      Meal.find({
+        id: req.params.meal_id
+      },function(err, meals) {
+          if (err) res.send(err);
+            if (err){
+              return err;
+            }else{
+              // return the meals
+              return res.json(meals);
+            }
+        });
+    })
 
 
   apiRouter.route('/users')
