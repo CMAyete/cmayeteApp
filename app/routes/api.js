@@ -102,7 +102,7 @@ module.exports = function(app, express, passport) {
     }
   });
 
-  // Routes that end in /meals
+  // Meals section
   // ----------------------------------------------------
   apiRouter.route('/meals')
 
@@ -180,7 +180,23 @@ module.exports = function(app, express, passport) {
         });
     })
 
+  apiRouter.route('/lastdate')
 
+  // update the date with this id
+  .put(function(req, res) {
+        minimumMealsDay = new Date(Date.now());
+        //process.env.MINDAY = minimumMealsDay;
+        //console.log(MINDAY);
+        // return a message
+        res.json(minimumMealsDay);
+  })  
+
+  .get(function(req, res) {
+    return res.json(minimumMealsDay);
+  });
+
+  // User Management section
+  // ----------------------------------------------------
   apiRouter.route('/users')
     .post(function(req,res){
       var user = new User();
@@ -211,8 +227,6 @@ module.exports = function(app, express, passport) {
       });
     });
 
-  // Routes that end in /users/:user_id
-  // ----------------------------------------------------
   apiRouter.route('/users/:user_id')
 
     .delete(function(req, res) {
@@ -230,6 +244,8 @@ module.exports = function(app, express, passport) {
         });
     });
 
+  // Books section
+  // ----------------------------------------------------
   apiRouter.route('/books')
     .post(function(req,res){
       var book = new Book();
@@ -250,9 +266,8 @@ module.exports = function(app, express, passport) {
         // return a message
         res.json({ message: 'Libro creado' });
       })
-    });
+    })
 
-  apiRouter.route('/books')
     .get(function(req, res) {
       var exp = req.query.search;
       var currentPage = req.query.page-1;
@@ -276,8 +291,6 @@ module.exports = function(app, express, passport) {
       }).sort({numero: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
     });
 
-  // Routes that end in /users/:user_id
-  // ----------------------------------------------------
   apiRouter.route('/books/:book_id')
 
     .delete(function(req, res) {
@@ -295,22 +308,6 @@ module.exports = function(app, express, passport) {
         });
     });
 
-  // Controlling the last day meals were asked
-  // ----------------------------------------------------
-  apiRouter.route('/lastdate')
-
-  // update the date with this id
-  .put(function(req, res) {
-        minimumMealsDay = new Date(Date.now());
-        //process.env.MINDAY = minimumMealsDay;
-        //console.log(MINDAY);
-        // return a message
-        res.json(minimumMealsDay);
-  })  
-
-  .get(function(req, res) {
-    return res.json(minimumMealsDay);
-  });
 
     // test route to make sure everything is working 
   apiRouter.get('/', function(req, res) {

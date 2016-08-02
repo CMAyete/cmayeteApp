@@ -24,13 +24,11 @@ angular.module('bookCtrl', ['ngMaterial'])
         vm.processing = false;
         vm.books = data.books;
         vm.numPages = data.nump;
-        console.log(data);
       });
   }
 
   vm.deleteBook = function(id){
     vm.processing = true;
-    console.log(id);
     Book.delete(id)
       .success(function(data){
         vm.processing = false;
