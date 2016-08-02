@@ -1,12 +1,12 @@
 <md-card>
   <md-card-content ng-init="books.getBooks()">
-      <input name="clientName" ng-model="books.search">
+      <input name="clientName" ng-model="books.search" ng-change="books.getBooks()" ng-model-options="{debounce: 500}">
 
 
     <md-list>
       <md-subheader class="md-no-sticky">Listado</md-subheader>
 
-      <md-list-item class="md-3-line" ng-repeat="book in books.books| orderBy:'numero' | filter:books.search track by book.numero" ng-model-options="{debounce: 500}">
+      <md-list-item class="md-3-line" ng-repeat="book in books.books| filter:books.search track by book.numero" >
         <div class="md-list-item-text">
         <h3><b>{{ book.numero }}</b></h3>
         <h4>{{ book.apellidos }}</h4>
@@ -17,11 +17,11 @@
         </div>
         <md-button class="md-warn" ng-click="books.deleteBook(book._id)">Borrar</md-button>
       </md-list-item>
-      <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+      <button ng-disabled="books.currentPage == 1" ng-click="books.prevPressed()">
           Previous
       </button>
-      {{currentPage+1}}/{{numberOfPages()}}
-      <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+      {{books.currentPage}}/{{books.numPages}}
+      <button ng-disabled="books.currentPage >= books.numPages" ng-click="books.nextPressed()">
           Next
       </button>
 

@@ -235,7 +235,7 @@ module.exports = function(app, express, passport) {
       var book = new Book();
       book.numero = req.body.numero;
       book.letra = req.body.letra;
-      book.apellido = req.body.apellido;
+      book.apellidos = req.body.apellido;
       book.nombre = req.body.nombre;
       book.titulo = req.body.titulo;
       book.idioma = req.body.idioma;
@@ -250,16 +250,30 @@ module.exports = function(app, express, passport) {
         // return a message
         res.json({ message: 'Libro creado' });
       })
-    })
+    });
 
+  apiRouter.route('/books')
     .get(function(req, res) {
-      Book.find(function(err, books) {
+      var exp = req.query.search;
+      var currentPage = req.query.page-1;
+      Book.find( { $or: [
+                    {"titulo":    { "$regex": exp, "$options": "i" }}, 
+                    {"nombre":    { "$regex": exp, "$options": "i" }}, 
+                    {"apellidos": { "$regex": exp, "$options": "i" }}
+                  ]},function(err, books) {
         if (err){
           return err;
         }else{
-          return res.json(books);
+          Book.find({ $or: [
+                      {"titulo":    { "$regex": exp, "$options": "i" }}, 
+                      {"nombre":    { "$regex": exp, "$options": "i" }}, 
+                      {"apellidos": { "$regex": exp, "$options": "i" }}
+                    ]}).count().exec(function (err,count) {
+                    var nump = Math.ceil(count/10);
+                    return res.json({books,nump});
+          })
         }
-      });
+      }).sort({numero: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
     });
 
   // Routes that end in /users/:user_id

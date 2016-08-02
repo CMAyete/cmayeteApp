@@ -6,8 +6,12 @@ angular.module('BookService', [])
   var BookFactory = {};
 
   // get all books
-  BookFactory.all = function() {
-    return $http.get('/api/books/');
+  BookFactory.all = function(name,current){
+    var config = { params:{
+                    search: name,
+                    page:current
+                  }};
+    return $http.get('/api/books/' ,config);
   };
 
   // add a book
