@@ -308,6 +308,19 @@ module.exports = function(app, express, passport) {
         });
     });
 
+  apiRouter.route('/booksData')
+    .get(function(req, res) {
+      var query = {};
+      query[req.query.field] = { "$regex": "^" + req.query.search, "$options": "i" };
+      Book.distinct(req.query.field,query,function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    });
+
 
     // test route to make sure everything is working 
   apiRouter.get('/', function(req, res) {

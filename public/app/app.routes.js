@@ -23,7 +23,7 @@ angular.module('app.routes', ['ngRoute'])
           controllerAs: 'meals',
       data: {
         reqPermissions: 'meals',
-        redirect: '/login',
+        redirect: '/meals',
       }
     })
 
@@ -46,7 +46,7 @@ angular.module('app.routes', ['ngRoute'])
           controllerAs: 'settings',
       data: {
         reqPermissions: 'admin',
-        redirect: '/login',
+        redirect: '/meals',
       }
     })
 
@@ -58,6 +58,16 @@ angular.module('app.routes', ['ngRoute'])
       data: {
         reqPermissions: 'isLogged',
         redirect: '/login',
+      }
+    })
+
+    .when('/addBook', {
+      templateUrl : 'app/views/pages/newBook.html',
+        controller  : 'BooksController',
+          controllerAs: 'books',
+      data: {
+        reqPermissions: 'library',
+        redirect: '/books',
       }
     })
 

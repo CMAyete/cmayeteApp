@@ -23,6 +23,15 @@ angular.module('BookService', [])
   BookFactory.delete = function(id) {
     return $http.delete('/api/books/' + id);
   };
+
+  // find book data
+  BookFactory.findData = function(dataField,searchText) {
+    var config = { params:{
+                field: dataField,
+                search:searchText
+              }};
+    return $http.get('/api/booksData/',config);
+  };
   
   return BookFactory;
 

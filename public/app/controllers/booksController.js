@@ -1,14 +1,19 @@
 angular.module('bookCtrl', ['ngMaterial'])
 
-.controller('BooksController', function($rootScope, $location, Book,$window) {
+.controller('BooksController', function(Book) {
   var vm = this;
 
-  vm.search = "";
   vm.currentPage = 1;
   vm.numPages;
+  vm.search = {
+    apellidos: [''],
+    nombre: [''],
+    titulo: [''],
+    idioma: [''],
+    lugar: ['']
+  };
 
   vm.book = {
-    id: '',
     numero: '',
     letra: '',
     apellidos: '',
@@ -36,9 +41,8 @@ angular.module('bookCtrl', ['ngMaterial'])
       });
   }
   
-  vm.send = function(){
+  vm.addNew = function(){
     Book.create(vm.book);
-    vm.getUsers();
   }
 
   vm.nextPressed = function(){
@@ -49,6 +53,22 @@ angular.module('bookCtrl', ['ngMaterial'])
   vm.prevPressed = function(){
     --vm.currentPage;
     vm.getBooks();
+  }
+
+  vm.bookData = function(dataField,searchText) {
+    return Book.findData(dataField,searchText)
+      .then(function(data) {
+        vm.processing = false;
+        return data.data;
+      });
+  }
+
+  vm.newData = function(data,field){
+    vm.book[field] = data;
+  }
+
+  vm.selectedItemChange = function(data,field){
+    vm.book[field] = data;
   }
 
 });
