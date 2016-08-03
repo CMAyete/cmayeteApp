@@ -1,6 +1,6 @@
 angular.module('bookCtrl', ['ngMaterial'])
 
-.controller('BooksController', function(Book) {
+.controller('BooksController', function(Book,$rootScope) {
   var vm = this;
 
   vm.currentPage = 1;
@@ -22,6 +22,7 @@ angular.module('bookCtrl', ['ngMaterial'])
     titulo: '',
     idioma: '',
     lugar: '',
+    enUso: '',
   };
 
   vm.getBooks = function() {
@@ -70,6 +71,32 @@ angular.module('bookCtrl', ['ngMaterial'])
 
   vm.selectedItemChange = function(data,field){
     vm.book[field] = data;
+  }
+
+  vm.getUserBooks = function(){
+    Book.getMyBooks($rootScope.userData.number)
+      .success(function(data) {
+        vm.processing = false;
+        vm.myBooks = data;
+      });
+  }
+
+  vm.takeBook = function(id){
+    Book.manageMyBook(id,$rootScope.userData.number)
+      .success(function(data) {
+        vm.processing = false;
+        console.log("Hola");
+        vm.getBooks();
+      });
+  }
+
+  vm.returnBook = function(id){
+    Book.manageMyBook(id,null)
+      .success(function(data) {
+        vm.processing = false;
+        console.log("Hola");
+        vm.getUserBooks();
+      });
   }
 
 });

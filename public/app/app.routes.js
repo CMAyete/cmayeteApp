@@ -71,6 +71,16 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
+    .when('/myBooks', {
+      templateUrl : 'app/views/pages/myBooks.html',
+        controller  : 'BooksController',
+          controllerAs: 'books',
+      data: {
+        reqPermissions: 'isLogged',
+        redirect: '/login',
+      }
+    })
+
     .otherwise({ redirectTo: '/meals'})
     
     /*

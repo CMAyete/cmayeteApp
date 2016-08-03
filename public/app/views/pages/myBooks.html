@@ -1,0 +1,22 @@
+<md-card>
+  <md-card-content ng-init="books.getUserBooks()">
+    <md-list>
+      <md-subheader class="md-no-sticky">Listado</md-subheader>
+
+      <md-list-item class="md-3-line" ng-repeat="book in books.myBooks" >
+        <div class="md-list-item-text">
+        <h3><b>{{ book.numero }}</b></h3>
+        <h4>{{ book.apellidos }}</h4>
+        <p>{{ book.nombre }}</p>
+        <p>{{ book.titulo }}</p>
+        <p>{{ book.idioma }}</p>
+        <p>{{ book.lugar }}</p>
+        </div>
+        <md-button class="md-warn" ng-click="books.returnBook(book._id)">Devolver</md-button>
+      </md-list-item>
+      <md-divider ></md-divider>
+
+    </md-list>
+
+  </md-card-content>
+</md-card>

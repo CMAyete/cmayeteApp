@@ -32,6 +32,22 @@ angular.module('BookService', [])
               }};
     return $http.get('/api/booksData/',config);
   };
+
+  BookFactory.getMyBooks = function(userNumber) {
+    var config = { params:{
+                idNum: userNumber,
+              }};
+    return $http.get('/api/myBooks/',config);
+  };
+
+  BookFactory.manageMyBook = function(bookID,userNumber) {
+    var config = { params:{
+                MongoID: bookID,
+                idNum: userNumber,
+              }};
+              console.log(config);
+    return $http.put('/api/myBooks/', config);
+  };
   
   return BookFactory;
 

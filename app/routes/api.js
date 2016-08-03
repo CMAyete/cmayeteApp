@@ -292,7 +292,6 @@ module.exports = function(app, express, passport) {
     });
 
   apiRouter.route('/books/:book_id')
-
     .delete(function(req, res) {
       Book.remove({
         _id: req.params.book_id
@@ -317,6 +316,31 @@ module.exports = function(app, express, passport) {
           return err;
         }else{
           return res.json(data);
+        }
+      });
+    });
+
+  apiRouter.route('/myBooks')
+    .get(function(req, res) {
+      Book.find({enUso:req.query.idNum},function(err, books) {
+        if (err){
+          console.log("Error: " + err);
+          return err;
+        }else{
+          console.log(books);
+          return res.json(books);
+        }
+      });
+    })
+
+    .put(function(req, res) {
+      Book.findOneAndUpdate({ _id: req.body.params.MongoID },{enUso: req.body.params.idNum},function(err, books) {
+        if (err){
+          console.log(err);
+          return err;
+        }else{
+          console.log(books);
+          return res.json(books);
         }
       });
     });

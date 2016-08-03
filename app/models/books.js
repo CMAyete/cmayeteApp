@@ -11,6 +11,7 @@ var BookSchema   = new Schema({
   titulo:   {type: String},
   idioma:   {type: String},
   lugar:   {type: String},
+  enUso:   {type: String}
 });
 
 module.exports = mongoose.model('book', BookSchema);
