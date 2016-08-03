@@ -5,6 +5,7 @@ angular.module('bookCtrl', ['ngMaterial'])
 
   vm.currentPage = 1;
   vm.numPages;
+  vm.searchAll = '';
   vm.search = {
     apellidos: [''],
     nombre: [''],

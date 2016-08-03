@@ -1,12 +1,12 @@
 <md-card>
   <md-card-content ng-init="books.getBooks()">
-      <input name="clientName" ng-model="books.search" ng-change="books.getBooks()" ng-model-options="{debounce: 500}">
+      <input name="clientName" ng-model="books.searchAll" ng-change="books.getBooks()" ng-model-options="{debounce: 500}">
 
 
     <md-list>
       <md-subheader class="md-no-sticky">Listado</md-subheader>
 
-      <md-list-item class="md-3-line" ng-repeat="book in books.books| filter:books.search track by book.numero" >
+      <md-list-item class="md-3-line" ng-repeat="book in books.books| filter:books.searchAll track by book.numero" >
         <div class="md-list-item-text">
         <h3><b>{{ book.numero }}</b></h3>
         <h4>{{ book.apellidos }}</h4>
