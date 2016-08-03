@@ -25,7 +25,7 @@ angular.module('bookCtrl', ['ngMaterial'])
   };
 
   vm.getBooks = function() {
-    Book.all(vm.search,vm.currentPage)
+    Book.all(vm.searchAll,vm.currentPage)
       .success(function(data) {
         vm.processing = false;
         vm.books = data.books;
