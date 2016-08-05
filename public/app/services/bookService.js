@@ -45,8 +45,14 @@ angular.module('BookService', [])
                 MongoID: bookID,
                 idNum: userNumber,
               }};
-              console.log(config);
     return $http.put('/api/myBooks/', config);
+  };
+
+  BookFactory.allBooksTaken = function(current) {
+    var config = { params:{
+                    page: current
+                  }};
+    return $http.get('/api/booksTaken/' ,config);
   };
   
   return BookFactory;

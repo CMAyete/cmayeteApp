@@ -320,6 +320,21 @@ module.exports = function(app, express, passport) {
       });
     });
 
+  apiRouter.route('/booksTaken')
+    .get(function(req, res) {
+      var currentPage = req.query.page-1;
+      Book.find({enUso: {$ne:null}},function(err, books) {
+        if (err){
+          return err;
+        }else{
+          Book.find({enUso: {$ne:null}}).count().exec(function (err,count) {
+            var nump = Math.ceil(count/10);
+            return res.json({books,nump});
+          })  
+        }
+      }).sort({numero: -1}).skip(currentPage*10).limit(10);
+    });
+
   apiRouter.route('/myBooks')
     .get(function(req, res) {
       Book.find({enUso:req.query.idNum},function(err, books) {
@@ -334,7 +349,7 @@ module.exports = function(app, express, passport) {
     })
 
     .put(function(req, res) {
-      Book.findOneAndUpdate({ _id: req.body.params.MongoID },{enUso: req.body.params.idNum},function(err, books) {
+      Book.findOneAndUpdate({ _id: req.body.params.MongoID },{enUso: req.body.params.idNum, fecha: new Date()},function(err, books) {
         if (err){
           console.log(err);
           return err;

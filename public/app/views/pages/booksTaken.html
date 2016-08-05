@@ -1,0 +1,34 @@
+<md-card>
+  <md-card-content ng-init="books.getBooksTaken()">
+
+    <md-list>
+      <md-subheader class="md-no-sticky">Listado</md-subheader>
+
+      <md-list-item class="md-3-line" ng-repeat="book in books.books" >
+        <div class="md-list-item-text">
+        <h3><b>{{ book.numero }}</b></h3>
+        <h4>{{ book.apellidos }}</h4>
+        <p>{{ book.nombre }}</p>
+        <p>{{ book.titulo }}</p>
+        <p>{{ book.idioma }}</p>
+        <p>{{ book.lugar }}</p>
+        <p>{{ book.enUso }}</p>
+        <p>{{ book.fecha }}</p>
+        </div>
+        <md-button class="md-primary" ng-click="books.takeBook(book._id)">Coger</md-button>
+        <md-button class="md-warn" ng-click="books.deleteBook(book._id)">Borrar</md-button>
+      </md-list-item>
+      <button ng-disabled="books.currentPage == 1" ng-click="books.prevPressed()">
+          Previous
+      </button>
+      {{books.currentPage}}/{{books.numPages}}
+      <button ng-disabled="books.currentPage >= books.numPages" ng-click="books.nextPressed()">
+          Next
+      </button>
+
+      <md-divider ></md-divider>
+
+    </md-list>
+
+  </md-card-content>
+</md-card>

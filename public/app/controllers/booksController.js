@@ -23,6 +23,7 @@ angular.module('bookCtrl', ['ngMaterial'])
     idioma: '',
     lugar: '',
     enUso: '',
+    fecha: '',
   };
 
   vm.getBooks = function() {
@@ -97,6 +98,15 @@ angular.module('bookCtrl', ['ngMaterial'])
         console.log("Hola");
         vm.getUserBooks();
       });
+  }
+
+  vm.getBooksTaken = function() {
+    Book.allBooksTaken(vm.currentPage)
+      .success(function(data) {
+        vm.processing = false;
+        vm.books = data.books;
+        vm.numPages = data.nump;
+    });
   }
 
 });
