@@ -168,7 +168,7 @@ module.exports = function(app, express, passport) {
   apiRouter.route('/userMeals/:meal_id')
     .get(function(req, res) {
       Meal.find({
-        id: req.params.meal_id
+        id: req.params.meal_id, date: {$gte : new Date(new Date().setDate(new Date().getDate()-2))}
       },function(err, meals) {
           if (err) res.send(err);
             if (err){
@@ -184,7 +184,7 @@ module.exports = function(app, express, passport) {
 
   // update the date with this id
   .put(function(req, res) {
-        minimumMealsDay = new Date(Date.now());
+        minimumMealsDay = new Date();
         //process.env.MINDAY = minimumMealsDay;
         //console.log(MINDAY);
         // return a message
@@ -339,10 +339,8 @@ module.exports = function(app, express, passport) {
     .get(function(req, res) {
       Book.find({enUso:req.query.idNum},function(err, books) {
         if (err){
-          console.log("Error: " + err);
           return err;
         }else{
-          console.log(books);
           return res.json(books);
         }
       });
@@ -351,10 +349,8 @@ module.exports = function(app, express, passport) {
     .put(function(req, res) {
       Book.findOneAndUpdate({ _id: req.body.params.MongoID },{enUso: req.body.params.idNum, fecha: new Date()},function(err, books) {
         if (err){
-          console.log(err);
           return err;
         }else{
-          console.log(books);
           return res.json(books);
         }
       });
