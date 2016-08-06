@@ -1,3 +1,10 @@
+// Import enviroment variables
+var __env = {};
+
+if(window){  
+  Object.assign(__env, window.__env);
+}
+
 angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter','eventsCtrl','EventsService'])
 
 .config(function ($httpProvider,$mdDateLocaleProvider) {
@@ -24,4 +31,6 @@ angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl',
       $location.path(redirect);
     }
   });
-});
+})
+
+.constant('_env', _env); 

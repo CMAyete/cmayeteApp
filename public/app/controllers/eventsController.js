@@ -1,11 +1,11 @@
-angular.module('eventsCtrl', ['ngMaterial',])
+angular.module('eventsCtrl', ['ngMaterial'])
 
-.controller('EventsController', function(Events) {
+.controller('EventsController', function(Events,_env) {
   var vm = this;
   vm.maxDate = new Date();
 
   vm.getEvents = function(){
-    return Events.mainCal('ayete.es_pu5p3ltp22t89tvn783vuoph84@group.calendar.google.com','',3)
+    return Events.mainCal('ayete.es_pu5p3ltp22t89tvn783vuoph84@group.calendar.google.com',_env.GCalendarAPIKey,3)
             .then(function(data){
               data.data.items.map(function(e){
                 e = prepareDates(e);
@@ -18,7 +18,7 @@ angular.module('eventsCtrl', ['ngMaterial',])
   }
 
   vm.getOtherCals = function(calendarURL){
-    return Events.otherCals(calendarURL,'',vm.maxDate)
+    return Events.otherCals(calendarURL,_env.GCalendarAPIKey,vm.maxDate)
             .then(function(data){
               data.data.items.map(function(e){
                 e = prepareDates(e);

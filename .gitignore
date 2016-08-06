@@ -5,3 +5,5 @@ app/config/config.js
 *.sublime-project
 
 *.sublime-workspace
+
+public/app/env.js
