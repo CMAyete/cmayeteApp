@@ -1,6 +1,6 @@
 <md-card>
   <md-card-content>
-    <form ng-submit="books.addNew()">
+    <form ng-submit="books.isUpdate ? books.editedBook() : books.addNew()">
       <md-input-container>
         <label>Número de ID</label>
         <input name="clientName" type="number" ng-model="books.book.numero">
@@ -104,7 +104,7 @@
 
 
       <md-button type="submit" id="addBookButton" class="md-raised" ng-class="'md-primary'" aria-label="Enviar">
-        <span>Enviar</span>
+        <span>{{books.sendButtonText}}</span>
       </md-button>
     </form>
 

@@ -15,6 +15,7 @@
         <p>{{ book.idioma }}</p>
         <p>{{ book.lugar }}</p>
         </div>
+        <md-button class="md-warn" ng-click="books.editBook(book._id)">Editar</md-button>
         <md-button class="md-primary" ng-click="books.takeBook(book._id)">Coger</md-button>
         <md-button class="md-warn" ng-click="books.deleteBook(book._id)">Borrar</md-button>
       </md-list-item>

@@ -305,7 +305,38 @@ module.exports = function(app, express, passport) {
             }
           });
         });
+    })
+    .put(function(req, res) {
+      console.log("Aqui");
+      console.log(req.body);
+      console.log(req.params);
+
+      Book.findOneAndUpdate({_id: req.params.book_id},{
+        numero: req.body.numero,
+        letra: req.body.letra,
+        apellidos: req.body.apellido,
+        nombre: req.body.nombre,
+        titulo: req.body.titulo,
+        idioma: req.body.idioma,
+        lugar: req.body.lugar,
+      },function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    })
+    .get(function(req, res) {
+      Book.findById({_id: req.params.book_id},function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
     });
+
 
   apiRouter.route('/booksData')
     .get(function(req, res) {

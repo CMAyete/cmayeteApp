@@ -1,10 +1,12 @@
 angular.module('bookCtrl', ['ngMaterial'])
 
-.controller('BooksController', function(Book,$rootScope) {
+.controller('BooksController', function(Book,$rootScope,$location) {
   var vm = this;
 
   vm.currentPage = 1;
   vm.numPages;
+  vm.isUpdate = false;
+  vm.sendButtonText = 'Enviar';
   vm.searchAll = '';
   vm.search = {
     apellidos: [''],
@@ -26,6 +28,18 @@ angular.module('bookCtrl', ['ngMaterial'])
     fecha: '',
   };
 
+  if(Book.getcurrentEditBook()){
+    console.log("Hola");
+    console.log(Book.getcurrentEditBook());
+    Book.findBookbyIDNum(Book.getcurrentEditBook()).then(function(data){
+      vm.book = data.data;
+      console.log(vm.book);
+    });
+    console.log(vm.book);
+    vm.isUpdate = true;
+    vm.sendButtonText = 'Actualizar';
+  }
+
   vm.getBooks = function() {
     Book.all(vm.searchAll,vm.currentPage)
       .success(function(data) {
@@ -46,6 +60,10 @@ angular.module('bookCtrl', ['ngMaterial'])
   
   vm.addNew = function(){
     Book.create(vm.book);
+  }
+
+  vm.editedBook = function(){
+    Book.updateBookByID(vm.book._id,vm.book);
   }
 
   vm.nextPressed = function(){
@@ -107,6 +125,11 @@ angular.module('bookCtrl', ['ngMaterial'])
         vm.books = data.books;
         vm.numPages = data.nump;
     });
+  }
+
+  vm.editBook = function(book_id){
+    Book.setcurrentEditBook(book_id);
+    $location.path("/addBook");
   }
 
 });

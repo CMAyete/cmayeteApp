@@ -4,6 +4,7 @@ angular.module('BookService', [])
 
   // create a new object
   var BookFactory = {};
+  var savedBook;
 
   // get all books
   BookFactory.all = function(name,current){
@@ -17,6 +18,17 @@ angular.module('BookService', [])
   // add a book
   BookFactory.create = function(BookData) {
     return $http.post('/api/books', BookData);
+  };
+
+  // find a book by ID Number
+  BookFactory.findBookbyIDNum = function(id) {
+    return $http.get('/api/books/' + id);
+  };
+
+  // find a book by ID Number
+  BookFactory.updateBookByID = function(id, BookData) {
+    console.log(BookData);
+    return $http.put('/api/books/' + id, BookData);
   };
 
   // delete a book
@@ -54,6 +66,14 @@ angular.module('BookService', [])
                   }};
     return $http.get('/api/booksTaken/' ,config);
   };
+
+  BookFactory.setcurrentEditBook = function(book){
+    savedBook = book;
+  }
+
+  BookFactory.getcurrentEditBook = function(book){
+    return savedBook;
+  }
   
   return BookFactory;
 
