@@ -91,6 +91,16 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
+    .when('/events', {
+      templateUrl : 'app/views/pages/events.html',
+        controller  : 'EventsController',
+          controllerAs: 'events',
+      data: {
+        reqPermissions: 'isLogged',
+        redirect: '/login',
+      }
+    })
+
 
     .otherwise({ redirectTo: '/meals'})
     
