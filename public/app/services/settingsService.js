@@ -7,8 +7,11 @@ angular.module('SettingsService', [])
   var savedUser;
 
   // get all meals
-  SettingsFactory.all = function() {
-    return $http.get('/api/users/');
+  SettingsFactory.all = function(current) {
+    var config = { params:{
+                    page: current
+                  }};
+    return $http.get('/api/users/', config);
   };
 
   // make a new change

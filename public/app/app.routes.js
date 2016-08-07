@@ -60,6 +60,16 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
+    .when('/usersList', {
+      templateUrl : 'app/views/pages/usersList.html',
+        controller  : 'SettingsController',
+          controllerAs: 'settings',
+      data: {
+        reqPermissions: 'admin',
+        redirect: '/meals',
+      }
+    })
+
     // Library settings page
     .when('/books', {
       templateUrl : 'app/views/pages/books.html',

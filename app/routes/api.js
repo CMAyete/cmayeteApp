@@ -219,13 +219,17 @@ module.exports = function(app, express, passport) {
     })
 
     .get(function(req, res) {
+      var currentPage = req.query.page-1;
       User.find(function(err, users) {
         if (err){
           return err;
         }else{
-          return res.json(users);
+            User.find().count().exec(function (err,count) {
+            var nump = Math.ceil(count/10);
+            return res.json({users,nump});
+          })
         }
-      });
+      }).sort({numero: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
     });
 
   apiRouter.route('/users/:user_id')

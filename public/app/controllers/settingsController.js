@@ -13,6 +13,8 @@ angular.module('settingsCtrl', ['ngMaterial',])
     dietContent: '',
   };
 
+  vm.currentPage = 1;
+  vm.numPages;
   vm.sendButtonText = 'Enviar';
   vm.isUpdate = false;
 
@@ -31,11 +33,22 @@ angular.module('settingsCtrl', ['ngMaterial',])
 
 
   vm.getUsers = function() {
-    Settings.all()
+    Settings.all(vm.currentPage)
       .success(function(data) {
         vm.processing = false;
-        vm.users = data;
+        vm.users = data.users;
+        vm.numPages = data.nump;
       });
+  }
+
+  vm.nextPressed = function(){
+    ++vm.currentPage;
+    vm.getUsers();
+  }
+
+  vm.prevPressed = function(){
+    --vm.currentPage;
+    vm.getUsers();
   }
 
   vm.deleteUser = function(id){

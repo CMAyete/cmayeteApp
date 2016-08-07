@@ -1,0 +1,27 @@
+<md-card>
+  <md-card-content ng-init="settings.getUsers()">
+    <h2>Lista de usuarios</h2>
+    <md-divider ></md-divider>
+      <md-list-item class="md-3-line" ng-repeat="user in settings.users| orderBy:'number'">
+        <div class="md-list-item-text">
+          <h3><b>{{ user.number }}</b></h3>
+          <p>{{ user.email}}</p>
+          <p>{{ user.admin}}</p>
+          <p>{{ user.meals}}</p>
+          <p>{{ user.library}}</p>
+          <p>{{ user._id}}</p>
+          <p>{{ user.hasDiet}}</p>
+          <p>{{ user.dietContent}}</p>
+        </div>
+        <md-button class="md-primary" ng-click="settings.editUser(user._id)">Editar</md-button>
+        <md-button class="md-warn" ng-click="settings.deleteUser(user._id)">Borrar</md-button>
+      </md-list-item>
+      <button ng-disabled="settings.currentPage == 1" ng-click="settings.prevPressed()">
+          Previous
+      </button>
+      {{settings.currentPage}}/{{settings.numPages}}
+      <button ng-disabled="settings.currentPage >= settings.numPages" ng-click="settings.nextPressed()">
+          Next
+      </button>
+  </md-card-content>
+</md-card>
