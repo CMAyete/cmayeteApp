@@ -4,13 +4,31 @@ angular.module('settingsCtrl', ['ngMaterial',])
   var vm = this;
 
   vm.user = {
-    Name: '',
-    Email: '',
-    Number: '',
-    Admin: false,
-    Meals: false,
-    Library: false,
+    email: '',
+    number: '',
+    admin: false,
+    meals: false,
+    library: false,
+    hasDiet: false,
+    dietContent: '',
   };
+
+  vm.sendButtonText = 'Enviar';
+  vm.isUpdate = false;
+
+  if(Settings.getcurrentEditUser()){
+    console.log("Hola");
+    console.log(Settings.getcurrentEditUser());
+    Settings.findUserbyIDNum(Settings.getcurrentEditUser()).then(function(data){
+      vm.user = data.data;
+      console.log("data " + data.data);
+      console.log(vm.user);
+    });
+    console.log(vm.user);
+    vm.isUpdate = true;
+    vm.sendButtonText = 'Actualizar';
+  }
+
 
   vm.getUsers = function() {
     Settings.all()
@@ -38,10 +56,20 @@ angular.module('settingsCtrl', ['ngMaterial',])
     return vm.user[item];
   }
 
-  vm.send = function(){
+  vm.addNewUser = function(){
     console.log(vm.user);
-    Settings.create(vm.user);
-    vm.getUsers();
+    Settings.create(vm.user).success(function(data){
+      vm.sendButtonText = 'Enviado';
+    });
+  }
+
+  vm.editUser = function(user_id){
+    Settings.setcurrentEditUser(user_id);
+    $location.path("/addUser");
+  }
+
+  vm.editedUser = function(){
+    Settings.updateUserByID(vm.user._id,vm.user);
   }
 
 });

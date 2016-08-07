@@ -200,12 +200,13 @@ module.exports = function(app, express, passport) {
   apiRouter.route('/users')
     .post(function(req,res){
       var user = new User();
-      user.email = req.body.Email;
-      user.number = req.body.Number;
-      user.name = req.body.Name;
-      user.admin = req.body.Admin;
-      user.meals = req.body.Meals;
-      user.library = req.body.Library;
+      user.email = req.body.email;
+      user.number = req.body.number;
+      user.admin = req.body.admin;
+      user.meals = req.body.meals;
+      user.library = req.body.library;
+      user.hasDiet = req.body.hasDiet;
+      user.dietContent = req.body.dietContent;
       user.save(function(err){
         if(err){
           if (err.code == 11000) 
@@ -228,7 +229,33 @@ module.exports = function(app, express, passport) {
     });
 
   apiRouter.route('/users/:user_id')
-
+    .get(function(req, res) {
+      User.findById({_id: req.params.user_id},function(err, data) {
+        if (err){
+          return err;
+        }else{
+          console.log(data);
+          return res.json(data);
+        }
+      });
+    })
+    .put(function(req, res) {
+      User.findOneAndUpdate({_id: req.params.user_id},{
+        email: req.body.email,
+        number: req.body.number,
+        admin: req.body.admin,
+        meals: req.body.meals,
+        library: req.body.library,
+        hasDiet: req.body.hasDiet,
+        dietContent: req.body.dietContent,
+      },function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    })
     .delete(function(req, res) {
       User.remove({
         _id: req.params.user_id
@@ -307,10 +334,6 @@ module.exports = function(app, express, passport) {
         });
     })
     .put(function(req, res) {
-      console.log("Aqui");
-      console.log(req.body);
-      console.log(req.params);
-
       Book.findOneAndUpdate({_id: req.params.book_id},{
         numero: req.body.numero,
         letra: req.body.letra,

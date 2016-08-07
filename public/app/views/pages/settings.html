@@ -41,16 +41,18 @@
   <md-card-content>
     <h2>Lista de usuarios</h2>
     <md-divider ></md-divider>
-      <md-list-item class="md-3-line" ng-repeat="user in settings.users| orderBy:'name'">
+      <md-list-item class="md-3-line" ng-repeat="user in settings.users| orderBy:'number'">
         <div class="md-list-item-text">
           <h3><b>{{ user.number }}</b></h3>
-          <h4>{{ user.name }}</h4>
           <p>{{ user.email}}</p>
           <p>{{ user.admin}}</p>
           <p>{{ user.meals}}</p>
           <p>{{ user.library}}</p>
           <p>{{ user._id}}</p>
+          <p>{{ user.hasDiet}}</p>
+          <p>{{ user.dietContent}}</p>
         </div>
+        <md-button class="md-primary" ng-click="settings.editUser(user._id)">Editar</md-button>
         <md-button class="md-warn" ng-click="settings.deleteUser(user._id)">Borrar</md-button>
       </md-list-item>
   </md-card-content>

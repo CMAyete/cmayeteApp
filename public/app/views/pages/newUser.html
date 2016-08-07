@@ -1,0 +1,44 @@
+<md-card>
+  <md-card-content>
+    <form ng-submit="settings.isUpdate ? settings.editedUser() : settings.addNewUser()">
+      <md-input-container>
+        <label>Número</label>
+        <input name="clientName" type="number" ng-model="settings.user.number">
+      </md-input-container>
+
+      <md-input-container>
+        <label>e-mail</label>
+        <input name="clientName" type="mail" ng-model="settings.user.email">
+      </md-input-container>
+
+      <md-input-container ng-if="settings.user.hasDiet">
+        <label>Contenido de la dieta</label>
+        <input name="clientName" type="mail" ng-model="settings.user.dietContent">
+      </md-input-container>
+
+      <div class="standard">
+        <label>
+          <input type="checkbox" ng-checked="settings.isChecked('admin')" ng-click="settings.toggle('admin')"/>
+          Administrador
+        </label>
+        <label>
+          <input type="checkbox" ng-checked="settings.isChecked('meals')" ng-click="settings.toggle('meals')"/>
+          Comidas
+        </label>
+        <label>
+          <input type="checkbox" ng-checked="settings.isChecked('library')" ng-click="settings.toggle('library')"/>
+          Biblioteca
+        </label>
+        <label>
+          <input type="checkbox" ng-checked="settings.isChecked('hasDiet')" ng-click="settings.toggle('hasDiet')"/>
+          Dieta
+        </label>
+      </div>
+
+      <md-button type="submit" id="addBookButton" class="md-raised" ng-class="'md-primary'" aria-label="Enviar">
+        <span>{{settings.sendButtonText}}</span>
+      </md-button>
+    </form>
+
+  </md-card-content>
+</md-card>
