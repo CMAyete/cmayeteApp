@@ -6,7 +6,20 @@ angular.module('SettingsService', [])
   var SettingsFactory = {};
   var savedUser;
 
-  // get all meals
+  // Get initial data count
+  SettingsFactory.prepareData = function() {
+    return $http.get('/api/settings');
+  };
+
+  // Clear collection data
+  SettingsFactory.clearCollection = function(collection) {
+    var config = { params:{
+                chosen: collection
+              }};
+    return $http.delete('/api/settings/', config);
+  };
+
+  // get all users
   SettingsFactory.all = function(current) {
     var config = { params:{
                     page: current

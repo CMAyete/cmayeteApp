@@ -1,7 +1,14 @@
 angular.module('settingsCtrl', ['ngMaterial',])
 
-.controller('SettingsController', function($rootScope, $location, Settings,$window) {
+.controller('SettingsController', function($rootScope, $location, Settings,$window,$mdDialog) {
   var vm = this;
+
+  vm.settingsData = {
+    lastMealsDate: new Date(),
+    mealsInDB: 0,
+    usersInDB: 0,
+    booksInDB: 0,
+  }
 
   vm.user = {
     email: '',
@@ -18,6 +25,26 @@ angular.module('settingsCtrl', ['ngMaterial',])
   vm.sendButtonText = 'Enviar';
   vm.isUpdate = false;
 
+  vm.gotoUsersList = function(){
+    $location.path('/usersList');
+  }
+
+  vm.gotoAddUser = function(){
+    $location.path('/addUser');
+  }
+
+  vm.clearAll = function(collection){
+    Settings.clearCollection(collection).then(function(data){
+      vm.loadSettingsData();
+    });
+  }
+
+  vm.loadSettingsData = function(){
+    Settings.prepareData().success(function(data){
+      vm.settingsData = data;
+    });
+  };
+
   if(Settings.getcurrentEditUser()){
     console.log("Hola");
     console.log(Settings.getcurrentEditUser());
@@ -31,6 +58,19 @@ angular.module('settingsCtrl', ['ngMaterial',])
     vm.sendButtonText = 'Actualizar';
   }
 
+  vm.openDial = function(execFunction, collection, event) {
+    var confirm = $mdDialog.confirm()
+          .title('¿Estás seguro?')
+          .textContent('Esta acción no se podrá deshacer.')
+          .ariaLabel('Confirmar')
+          .ok('Continuar')
+          .cancel('Cancelar')
+          .targetEvent(event);
+    $mdDialog.show(confirm).then(function() {
+      console.log(typeof execFunction)
+      execFunction(collection);
+    });
+  };
 
   vm.getUsers = function() {
     Settings.all(vm.currentPage)

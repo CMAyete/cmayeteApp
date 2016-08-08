@@ -1,6 +1,5 @@
 // Load packages
 // ================
-
 var Meal       = require('../models/meals');
 var User       = require('../models/users');
 var Book       = require('../models/books');
@@ -13,7 +12,6 @@ var secret    = process.env.SECRET || config.secret;
 var normalkey    = process.env.NORMALKEY || config.normalkey;
 var minimumMealsDay = process.env.MINDAY || new Date().setTime(config.minday);
 var defaultUserMail = process.env.DEFAULTUSER || config.defaultUser;
-
 
 // API Code
 // =========
@@ -273,6 +271,79 @@ module.exports = function(app, express, passport) {
             }
           });
         });
+    });
+
+  // Settings section
+  // ----------------------------------------------------
+  apiRouter.route('/settings')
+    .get(function(req, res) {
+      var response = {};
+      function countMeals(){
+        return Meal.count({},function(err, data) {
+                  if (err){
+                    return err;
+                  }else{
+                    response.mealsInDB = data;
+                  }
+                });
+      }
+      function countUsers(){
+        return User.count({},function(err, data) {
+                  if (err){
+                    return err;
+                  }else{
+                    response.usersInDB = data;
+                  }
+                });
+      }
+      function countBooks(){
+        return Book.count({},function(err, data) {
+                  if (err){
+                    return err;
+                  }else{
+                    response.booksInDB = data;
+                  }
+                });
+      }
+      Promise.all([countMeals(), countUsers(), countBooks()]).then(function(){
+        response.lastMealsDate = minimumMealsDay;
+        res.json(response);
+      });
+    })
+    .delete(function(req,res){
+      var collection = req.query.chosen;
+      if(collection=='User'){
+        User.remove({},function(err,data){
+          if(err){
+            return err;
+          }else{
+            console.log(data);
+            res.json(data);
+          }
+        });
+      }else if(collection == 'Meal'){
+        Meal.remove({},function(err,data){
+          if(err){
+            return err;
+          }else{
+            console.log(data);
+            res.json(data);
+          }
+        });
+      }else if(collection == 'Book'){
+        Book.remove({},function(err,data){
+          if(err){
+            return err;
+          }else{
+            console.log(data);
+            res.json(data);
+          }
+        });
+      }else if(collection == 'LastDate'){
+        minimumMealsDay = new Date('01/01/2000');
+      }else{
+        res.json('error');
+      }
     });
 
   // Books section

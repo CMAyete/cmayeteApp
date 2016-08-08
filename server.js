@@ -33,6 +33,7 @@ require('./app/config/passport')(passport); // pass passport for configuration
 app.use(morgan('dev'));
 
 // connect to database (hosted on mongolab)
+mongoose.Promise = global.Promise;
 mongoose.connect(db); 
 
 // set static files location
