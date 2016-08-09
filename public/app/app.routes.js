@@ -4,7 +4,7 @@ angular.module('app.routes', ['ngRoute'])
 
   $routeProvider
 
-    // Meals page
+    // Meals section
     .when('/meals', {
       templateUrl : 'app/views/pages/meals.html',
       controller  : 'MealController',
@@ -26,7 +26,7 @@ angular.module('app.routes', ['ngRoute'])
     })
 
      
-    // login page
+    // login section
     .when('/login', {
       templateUrl : 'app/views/pages/login.html',
         controller  : 'MainController',
@@ -37,7 +37,7 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
-    // Admin settings page
+    // Admin section
     .when('/settings', {
       templateUrl : 'app/views/pages/settings.html',
         controller  : 'SettingsController',
@@ -68,7 +68,7 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
-    // Library settings page
+    // Library section
     .when('/books', {
       templateUrl : 'app/views/pages/books.html',
         controller  : 'BooksController',
@@ -109,10 +109,32 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
+    // Events section
     .when('/events', {
       templateUrl : 'app/views/pages/events.html',
         controller  : 'EventsController',
           controllerAs: 'events',
+      data: {
+        reqPermissions: 'isLogged',
+        redirect: '/login',
+      }
+    })
+
+    // Sports section
+    .when('/sports', {
+      templateUrl : 'app/views/pages/sports.html',
+        controller  : 'SportsController',
+          controllerAs: 'sports',
+      data: {
+        reqPermissions: 'isLogged',
+        redirect: '/login',
+      }
+    })
+
+    .when('/addSport', {
+      templateUrl : 'app/views/pages/newSport.html',
+        controller  : 'SportsController',
+          controllerAs: 'sports',
       data: {
         reqPermissions: 'isLogged',
         redirect: '/login',

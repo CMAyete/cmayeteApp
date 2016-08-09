@@ -5,7 +5,7 @@ if(window){
   Object.assign(__env, window.__env);
 }
 
-angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter','eventsCtrl','EventsService'])
+angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter','eventsCtrl','EventsService','sportsCtrl','SportsService'])
 
 .config(function ($httpProvider,$mdDateLocaleProvider) {
   $httpProvider.interceptors.push('authInterceptor');
