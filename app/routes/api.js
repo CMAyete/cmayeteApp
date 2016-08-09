@@ -147,7 +147,8 @@ module.exports = function(app, express, passport) {
               return res.json(meals);
             }
         });
-    })
+    });
+  apiRouter.route('/meals/:meal_id')
     .delete(function(req, res) {
       Meal.remove({
         _id: req.params.meal_id
