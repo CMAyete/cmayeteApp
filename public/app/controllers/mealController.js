@@ -111,6 +111,9 @@ angular.module('mealCtrl',[])
     Meal.inDay(date)
       .success(function(data){
         vm.processing = false;
+        data.map(function(e){
+          e = vm.checkDiets(e);
+        });
         vm.requests = data;
       });
   }
@@ -118,7 +121,6 @@ angular.module('mealCtrl',[])
   // function to delete a change
   vm.deleteRequest = function(id) {
     vm.processing = true;
-
     Meal.delete(id)
       .success(function(data) {
         vm.myMeals();
@@ -131,6 +133,18 @@ angular.module('mealCtrl',[])
       meal.date = meal.date.setDate(meal.date.getDate()+1);
       meal.showDate = true;
     }
+  }
+
+  vm.checkDiets = function(meal){
+    Meal.hasDiet(meal.id)
+      .success(function(data){
+        //To avoid undefined warnings
+        if(data[0]){
+          if(data[0].hasDiet){
+            meal.dietMeal = true;
+          }
+        }
+      });
   }
 
 

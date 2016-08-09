@@ -10,7 +10,7 @@
         <div class="md-list-item-text">
         <h3>Group name: {{ key }}: <b>{{requests[key].length}}</b></h3>
         <li ng-repeat="user in value">
-          {{ user.id }} 
+          {{ user.id }}<span ng-if="user.dietMeal"> (Dieta)</span> 
         </li>
         </div>
       </md-list-item>

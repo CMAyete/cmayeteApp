@@ -148,7 +148,7 @@ module.exports = function(app, express, passport) {
             }
         });
     });
-    
+
   apiRouter.route('/meals/:meal_id')
     .delete(function(req, res) {
       Meal.remove({
@@ -230,6 +230,17 @@ module.exports = function(app, express, passport) {
           })
         }
       }).sort({numero: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
+    });
+
+  apiRouter.route('/userDiets/:user_num')
+    .get(function(req, res) {
+      User.find({number: req.params.user_num},function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
     });
 
   apiRouter.route('/users/:user_id')

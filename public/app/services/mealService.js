@@ -31,6 +31,11 @@ angular.module('MealService', [])
     return $http.delete('/api/meals/' + id);
   };
 
+  // delete a meal
+  MealFactory.hasDiet = function(id) {
+    return $http.get('/api/userDiets/' + id);
+  };
+
 
 
   // MEAL DATES LIMIT
