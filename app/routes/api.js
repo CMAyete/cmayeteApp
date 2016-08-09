@@ -317,7 +317,6 @@ module.exports = function(app, express, passport) {
           if(err){
             return err;
           }else{
-            console.log(data);
             res.json(data);
           }
         });
@@ -326,7 +325,6 @@ module.exports = function(app, express, passport) {
           if(err){
             return err;
           }else{
-            console.log(data);
             res.json(data);
           }
         });
@@ -335,7 +333,6 @@ module.exports = function(app, express, passport) {
           if(err){
             return err;
           }else{
-            console.log(data);
             res.json(data);
           }
         });

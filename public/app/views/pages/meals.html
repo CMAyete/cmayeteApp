@@ -15,7 +15,24 @@
             </md-select>
           </md-input-container>
 
+
+          <md-checkbox  ng-model="meals.repeat">
+            Repetir
+          </md-checkbox>
+
+          <md-input-container ng-if="meals.repeat">
+            <label>Repetir</label>
+            <md-select ng-model="meals.mealAsked.doRepeat">
+              <md-option ng-repeat="repeat in meals.possibleRepeats" value="{{ repeat.id }}">
+                {{repeat.name }}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
           <md-datepicker ng-model="meals.mealAsked.date" md-placeholder="Fecha">
+          </md-datepicker>
+
+          <md-datepicker ng-if="meals.repeat" ng-model="meals.mealAsked.endDate" md-placeholder="Hasta">
           </md-datepicker>
 
         <md-button type="submit" id="MealsButton" class="md-raised" ng-class="meals.MealError ? 'md-warn' : 'md-primary'" aria-label="Enviar">

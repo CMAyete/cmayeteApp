@@ -3,7 +3,6 @@ angular.module('app.routes', ['ngRoute'])
 .config(function($routeProvider, $locationProvider) {
 
   $routeProvider
-   
 
     // Meals page
     .when('/meals', {
@@ -16,7 +15,6 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
-        // Meals page
     .when('/mealrequests', {
       templateUrl : 'app/views/pages/mealrequests.html',
       controller  : 'MealController',
@@ -123,17 +121,6 @@ angular.module('app.routes', ['ngRoute'])
 
 
     .otherwise({ redirectTo: '/meals'})
-    
-    /*
-      Me interesa para un futuro
-
-    // page to edit a user
-    .when('/users/:user_id', {
-      templateUrl: 'app/views/pages/users/single.html',
-      controller: 'userEditController',
-      controllerAs: 'user'
-    });
-    */
 
   $locationProvider.html5Mode(true);
 

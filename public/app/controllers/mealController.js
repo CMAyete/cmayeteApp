@@ -5,6 +5,13 @@ angular.module('mealCtrl',[])
   var Meals = {};
   var vm=this;
   vm.pickDate = new Date();
+  vm.repeat = false;
+  vm.endDate = new Date();
+
+  vm.possibleRepeats = [
+    {id: 1, name: 'Cada día'},
+    {id: 7, name: 'Cada semana'}
+  ]
 
   vm.possibleRequests = [
     { id: 'NoD', name: 'Tachar el desayuno' },
@@ -23,6 +30,7 @@ angular.module('mealCtrl',[])
   vm.selectedRequest = { id: 'NoC', name: 'Tachar la cena' };
 
   vm.mealAsked = {};
+  vm.mealAsked.doRepeat = 0;
   vm.mealButtontext = 'Enviar';
 
   // Ask for a new meal change
@@ -38,21 +46,41 @@ angular.module('mealCtrl',[])
     },3000);
     
   }else{
-    
     vm.processing = true;
     vm.mealButtontext = '';
-    //Create the meal with special response to errors or success
-    Meal.create(vm.mealAsked)
-      .success(function() {
-        vm.processing = false;
-        vm.mealButtontext = 'Enviado';
-        vm.myMeals();
-      }).error(function() {
-        vm.processing = false;
-        vm.mealButtontext = 'Error';
-        vm.mealError = true;
-      });
-
+    if(vm.repeat){
+      var requestMeal = [{}];
+      var i=0;
+      requestMeal[i] = angular.copy(vm.mealAsked);
+        while(requestMeal[i].date <= vm.mealAsked.endDate){
+        (function(request) {
+        Meal.create(request)
+          .success(function() {
+            vm.processing = false;
+            vm.mealButtontext = 'Enviado';
+          }).error(function() {
+            vm.processing = false;
+            vm.mealButtontext = 'Error';
+            vm.mealError = true;
+          });
+        })(requestMeal[i]);
+        ++i;
+        requestMeal[i] = angular.copy(vm.mealAsked);
+        requestMeal[i].date = new Date(requestMeal[i].date.setDate(requestMeal[i-1].date.getDate()+Number(vm.mealAsked.doRepeat)));  
+      }
+    }else{
+      //Create the meal with special response to errors or success
+      Meal.create(vm.mealAsked)
+        .success(function() {
+          vm.processing = false;
+          vm.mealButtontext = 'Enviado';
+          vm.myMeals();
+        }).error(function() {
+          vm.processing = false;
+          vm.mealButtontext = 'Error';
+          vm.mealError = true;
+        });
+    }
     // Get the button back to normal  
     $timeout(function(){
         vm.mealError = false;
