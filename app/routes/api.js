@@ -148,6 +148,7 @@ module.exports = function(app, express, passport) {
             }
         });
     });
+    
   apiRouter.route('/meals/:meal_id')
     .delete(function(req, res) {
       Meal.remove({

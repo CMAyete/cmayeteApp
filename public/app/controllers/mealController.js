@@ -27,6 +27,8 @@ angular.module('mealCtrl',[])
     { id: 'C2', name: 'Cena de segundo turno' },
   ];
 
+  vm.dayBeforeIDkeys = ['NoD','D1','BD1','BT1','BD','BC'];
+
   vm.selectedRequest = { id: 'NoC', name: 'Tachar la cena' };
 
   vm.mealAsked = {};
@@ -35,6 +37,9 @@ angular.module('mealCtrl',[])
 
   // Ask for a new meal change
   vm.askMeal = function() {
+  if(vm.dayBeforeIDkeys.indexOf(vm.mealAsked.change) !== -1){
+    vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()-1));
+  }
   if(!vm.mealAsked.id || !vm.mealAsked.change || !vm.mealAsked.date || (vm.mealAsked.date < vm.currentDate)){
     vm.mealButtontext = 'Error';
     vm.mealError = true;
@@ -94,6 +99,10 @@ angular.module('mealCtrl',[])
     Meal.mine($rootScope.userData.number)
       .success(function(data) {
         vm.processing = false;
+        data.map(function(e){
+          e.date = new Date(e.date);
+          e = vm.modifyMealView(e);
+        });
         vm.myRequests = data;
       });
   }
@@ -116,6 +125,13 @@ angular.module('mealCtrl',[])
         vm.getMeals();
     });
   };
+
+  vm.modifyMealView = function(meal){
+    if(vm.dayBeforeIDkeys.indexOf(meal.change) !== -1){
+      meal.date = meal.date.setDate(meal.date.getDate()+1);
+      meal.showDate = true;
+    }
+  }
 
 
   /*
