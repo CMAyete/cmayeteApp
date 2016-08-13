@@ -1,9 +1,10 @@
 angular.module('mealCtrl',[])
 
-.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia,$scope) {
+.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia) {
 
   var Meals = {};
   var vm=this;
+
   vm.pickDate = new Date();
   vm.repeat = false;
   vm.endDate = new Date();

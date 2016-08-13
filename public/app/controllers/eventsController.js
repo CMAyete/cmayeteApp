@@ -2,6 +2,7 @@ angular.module('eventsCtrl', ['ngMaterial'])
 
 .controller('EventsController', function(Events,_env) {
   var vm = this;
+
   vm.maxDate = new Date();
 
   vm.getEvents = function(){

@@ -72,6 +72,13 @@
     <span flex></span>
     <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
   </div>
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-href="/meals" name="/meals">Comidas</md-nav-item>
+      <md-nav-item md-nav-href="/books" name="/books">Biblioteca</md-nav-item>
+      <md-nav-item md-nav-href="/sports" name="/sports">Deporte</md-nav-item>
+      <md-nav-item md-nav-href="/events" name="/events">Eventos</md-nav-item>
+      <md-nav-item md-nav-href="/settings" name="/settings">Ajustes</md-nav-item>
+    </md-nav-bar>
 </md-toolbar>
 
 <main ng-class="{login: !userData.isLogged, all: userData.isLogged}">
