@@ -1,12 +1,14 @@
 angular.module('sportsCtrl', ['ngMaterial',])
 
-.controller('SportsController', function(Sport) {
+.controller('SportsController', function(Sport, $location) {
   var vm = this;
 
   vm.isUpdate = false;
   vm.search = '';
   vm.sendButtonText = 'Enviar';
   vm.numPages;
+  vm.matches;
+  vm.currentPage = 1;
 
   vm.match = {
     name: '',
@@ -23,6 +25,10 @@ angular.module('sportsCtrl', ['ngMaterial',])
 
   if(Sport.getcurrentEditSport()){
     Sport.findSportbyIDNum(Sport.getcurrentEditSport()).then(function(data){
+      data.data.playersList = data.data.playersList[0];
+      data.data.date = new Date(data.data.date);
+      data.data.startTime = new Date(data.data.startTime);
+      data.data.endTime = new Date(data.data.endTime);
       vm.match = data.data;
       console.log(vm.match);
     });
@@ -35,7 +41,8 @@ angular.module('sportsCtrl', ['ngMaterial',])
     Sport.all(vm.currentPage)
       .success(function(data) {
         vm.processing = false;
-        vm.match = data.match;
+        console.log(data.matches);
+        vm.matches = data.matches;
         vm.numPages = data.nump;
       });
   }
@@ -56,6 +63,15 @@ angular.module('sportsCtrl', ['ngMaterial',])
   	Sport.create(vm.match);
   }
 
+  vm.deleteMatch = function(id){
+    vm.processing = true;
+    Sport.delete(id)
+      .success(function(data){
+        vm.processing = false;
+        vm.getSports();
+      });
+  }
+
   vm.matchData = function(dataField,searchText) {
     return Sport.findData(dataField,searchText)
       .then(function(data) {
@@ -70,6 +86,25 @@ angular.module('sportsCtrl', ['ngMaterial',])
 
   vm.newData = function(search,id){
     vm.match.place = search;
+  }
+
+  vm.nextPressed = function(){
+    ++vm.currentPage;
+    vm.getSports();
+  }
+
+  vm.prevPressed = function(){
+    --vm.currentPage;
+    vm.getSports();
+  }
+
+  vm.editedMatch = function(){
+    Sport.updateSportByID(vm.match._id,vm.match);
+  }
+
+  vm.editMatch = function(match_id){
+    Sport.setcurrentEditSport(match_id);
+    $location.path("/addSport");
   }
 
 

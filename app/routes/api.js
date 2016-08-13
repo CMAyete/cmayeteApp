@@ -521,6 +521,65 @@ module.exports = function(app, express, passport) {
         // return a message
         res.json({ message: 'Partido creado' });
       })
+    })
+
+    .get(function(req, res) {
+      var currentPage = req.query.page-1;
+      Sport.find(function(err, matches) {
+        if (err){
+          return err;
+        }else{
+          Sport.find().count().exec(function (err,count) {
+                    var nump = Math.ceil(count/10);
+                    return res.json({matches,nump});
+          })
+        }
+      }).sort({date: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
+    });
+
+  apiRouter.route('/sports/:sport_id')
+    .delete(function(req, res) {
+      Sport.remove({
+        _id: req.params.sport_id
+      },function(err, book) {
+          if (err) res.send(err);
+          Sport.find(function(err, matches) {
+            if (err){
+              return err;
+            }else{
+              return res.json(matches);
+            }
+          });
+        });
+    })
+    .put(function(req, res) {
+      Sport.findOneAndUpdate({_id: req.params.sport_id},{
+      name: req.body.name,
+      place: req.body.place,
+      playersPerTeam: req.body.playersPerTeam,
+      numberOfTeams: req.body.numberOfTeams,
+      date: req.body.date,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      isLocked: req.body.isLocked,
+      playersList: req.body.playersList,
+      waitingList: req.body.waitingList,
+      },function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    })
+    .get(function(req, res) {
+      Sport.findById({_id: req.params.sport_id},function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
     });
 
   apiRouter.route('/sportsData')

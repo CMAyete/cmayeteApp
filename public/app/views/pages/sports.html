@@ -4,9 +4,9 @@
     <md-list>
       <md-subheader class="md-no-sticky">Listado</md-subheader>
 
-      <md-list-item class="md-3-line" ng-repeat="match in sports.sports| track by sports.date" >
+      <md-list-item class="md-3-line" ng-repeat="match in sports.matches" >
         <div class="md-list-item-text">
-        <h3><b>{{ sport.name }}</b></h3>
+        <h3><b>{{ match.name }}</b></h3>
         </div>
         <md-button class="md-warn" ng-click="sports.editMatch(match._id)">Editar</md-button>
         <md-button class="md-warn" ng-click="sports.deleteMatch(match._id)">Borrar</md-button>
