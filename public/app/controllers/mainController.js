@@ -3,6 +3,8 @@ angular.module('mainCtrl', ['ngMaterial',])
 .controller('MainController', function($rootScope, $location, Auth,$window) {
   var vm = this;
 
+  $rootScope.currentLink = 'meals';
+
   vm.currentNavItem = 'meals';
 
   vm.goLogIn = function(){
