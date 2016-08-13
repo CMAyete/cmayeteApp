@@ -33,4 +33,23 @@ angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl',
   });
 })
 
-.constant('_env', _env); 
+.constant('_env', _env)
+
+/* 
+  Directive from https://mark.zealey.org/2015/01/08/formatting-time-inputs-nicely-with-angularjs
+ */             
+.directive('ngModel', function( $filter ) {
+    return {
+        require: '?ngModel',
+        link: function(scope, elem, attr, ngModel) {
+            if( !ngModel )
+                return;
+            if( attr.type !== 'Time' )
+                return;
+                    
+            ngModel.$formatters.unshift(function(value) {
+                return value.replace(/:[0-9]{2}\.[0-9]{3}$/, '')
+            });
+        }
+    }   
+}); 

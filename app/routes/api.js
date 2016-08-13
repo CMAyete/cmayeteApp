@@ -3,6 +3,7 @@
 var Meal       = require('../models/meals');
 var User       = require('../models/users');
 var Book       = require('../models/books');
+var Sport      = require('../models/sports');
 var jwt        = require('jsonwebtoken');
 var config     = require('../config/config');
 
@@ -495,6 +496,45 @@ module.exports = function(app, express, passport) {
       });
     });
 
+  // Sports section
+  // ----------------------------------------------------
+  apiRouter.route('/sports')
+    .post(function(req,res){
+      var sport = new Sport();
+      sport.name = req.body.name;
+      sport.place = req.body.place;
+      sport.playersPerTeam = req.body.playersPerTeam;
+      sport.numberOfTeams = req.body.numberOfTeams;
+      sport.date = req.body.date;
+      sport.startTime = req.body.startTime;
+      sport.endTime = req.body.endTime;
+      sport.isLocked = req.body.isLocked;
+      sport.playersList = req.body.playersList;
+      sport.waitingList = req.body.waitingList;
+      sport.save(function(err){
+        if(err){
+          if (err.code == 11000) 
+            return res.json({ success: false, message: 'Ya existe ese partido'});
+          else 
+            return res.send(err);
+        }
+        // return a message
+        res.json({ message: 'Partido creado' });
+      })
+    });
+
+  apiRouter.route('/sportsData')
+    .get(function(req, res) {
+      var query = {};
+      query[req.query.field] = { "$regex": "^" + req.query.search, "$options": "i" };
+      Sport.distinct(req.query.field,query,function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    });
 
     // test route to make sure everything is working 
   apiRouter.get('/', function(req, res) {
