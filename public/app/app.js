@@ -7,6 +7,18 @@ if(window){
 
 angular.module('cmayete', ['ngAnimate', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter','eventsCtrl','EventsService','sportsCtrl','SportsService'])
 
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('brown', {
+      'default': '500',
+      'hue-1': '100',
+      'hue-2': '700',
+    })
+    .accentPalette('orange', {
+      'default': '500'
+    });
+})
+
 .config(function ($httpProvider,$mdDateLocaleProvider) {
   $httpProvider.interceptors.push('authInterceptor');
   $mdDateLocaleProvider.formatDate = function(date) {
