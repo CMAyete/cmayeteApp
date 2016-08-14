@@ -64,7 +64,7 @@
 <body ng-app="cmayete" ng-controller="MainController as main" ng-class="{landing: !userData.isLogged, normal:userData.isLogged}" ng-cloak>
 
 <!-- NAVBAR -->
-<md-toolbar ng-if="userData.isLogged">
+<md-toolbar md-tall ng-if="userData.isLogged">
   <div class="md-toolbar-tools">
     <h2>
       <span>CMAyete</span>
@@ -72,6 +72,7 @@
     <span flex></span>
     <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
   </div>
+  <span flex></span>
     <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
       <md-nav-item md-nav-href="/meals" name="/meals">Comidas</md-nav-item>
       <md-nav-item md-nav-href="/books" name="/books">Biblioteca</md-nav-item>

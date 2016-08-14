@@ -30,7 +30,15 @@
     Navigation styles
 */
 
+md-nav-bar{
+    white-space: nowrap;
+    overflow-x: auto;
+}
 
+md-nav-item{
+    display: inline-block;
+    float: none;
+}
 
 /* 
     Login Page
