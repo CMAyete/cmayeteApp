@@ -40,6 +40,16 @@ md-nav-item{
     float: none;
 }
 
+.customFab md-fab-trigger .md-fab:hover, .md-is-open md-fab-trigger .md-fab{
+    background-color: #4E342E !important; 
+}
+.customFab md-fab-actions .md-fab:hover, .md-is-open md-fab-trigger button{
+    background-color: #795548 !important; 
+}
+.customFab .md-fab:hover md-icon{
+    color:#fff !important;
+}
+
 /* 
     Login Page
 */

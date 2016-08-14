@@ -44,29 +44,30 @@
 
     <h2>Mis pedidos</h2>
     <md-divider ></md-divider>
-      <md-list-item class="md-3-line" ng-repeat="request in meals.myRequests| orderBy:'date'">
+    <md-list-item class="md-3-line" ng-repeat="request in meals.myRequests| orderBy:'date'">
         <div class="md-list-item-text">
-        <h3><b>{{ request.id }}</b></h3>
-        <h4>{{ request.change }}</h4>
-        <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
+            <h3><b>{{ request.id }}</b></h3>
+            <h4>{{ request.change }}</h4>
+            <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
         </div>
         <md-button class="md-warn" ng-click="meals.deleteRequest(request._id)">Borrar</md-button>
-      </md-list-item>
+    </md-list-item>
 
   </md-card-content>
 </md-card>
 
-
-<md-card ng-if="$root.userData.meals == true">
-  <md-card-content>
-
-    <md-button id="MealsButton" class="md-raised md-warn" aria-label="Actualizar" ng-click="meals.NewDate()">
-      <span>Actualizar fecha</span>
-    </md-button>
-
-    <md-button id="MealsButton" class="md-raised md-primary" aria-label="Ver lista" href="/mealrequests">
-      <span>Ver Comidas</span>
-    </md-button>
-
-  </md-card-content>
-</md-card>
+<md-fab-speed-dial ng-if="$root.userData.meals == true" md-open="false" md-direction="up" ng-class="'md-fling md-fab-bottom-right customFab'">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary hue-2" >
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button aria-label="Lista de comidas" class="md-fab md-raised md-mini" href="/mealrequests">
+            <md-icon class="material-icons" aria-label="Lista de comidas">format_list_bulleted</md-icon>
+        </md-button>
+        <md-button aria-label="Actualizar fecha mínima" class="md-fab md-raised md-mini" ng-click="meals.NewDate()">
+            <md-icon class="material-icons" aria-label="Actualizar fecha mínima">update</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>    
