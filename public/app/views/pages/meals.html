@@ -1,60 +1,69 @@
 <md-card>
-  <md-card-content ng-init="meals.myMeals()">
-    <form ng-submit="meals.askMeal()">
-      <md-input-container>
-        <label>Introduce tu número</label>
-        <input name="clientName" type="number" ng-model="meals.mealAsked.id">
-      </md-input-container>
+    <md-card-content>
 
-          <md-input-container>
-            <label>Cambio</label>
-            <md-select ng-model="meals.mealAsked.change">
-              <md-option ng-repeat="request in meals.possibleRequests" value="{{ request.id }}">
-                {{request.name }}
-              </md-option>
-            </md-select>
-          </md-input-container>
+        <form ng-submit="meals.askMeal()" layout="column">
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Número</label>
+                    <input name="clientName" type="number" ng-model="meals.mealAsked.id">
+                </md-input-container>
+                <md-checkbox flex ng-model="meals.repeat" aria-label="Repetir">Repetir</md-checkbox>
+            </div>
 
+            <md-input-container>
+                <label>Cambio</label>
+                <md-select ng-model="meals.mealAsked.change">
+                    <md-option ng-repeat="request in meals.possibleRequests" value="{{ request.id }}">
+                        {{request.name }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
 
-          <md-checkbox  ng-model="meals.repeat">
-            Repetir
-          </md-checkbox>
+            <md-input-container ng-if="meals.repeat">
+                <label>Repetir</label>
+                <md-select ng-model="meals.mealAsked.doRepeat">
+                    <md-option ng-repeat="repeat in meals.possibleRepeats" value="{{ repeat.id }}">
+                        {{repeat.name }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
 
-          <md-input-container ng-if="meals.repeat">
-            <label>Repetir</label>
-            <md-select ng-model="meals.mealAsked.doRepeat">
-              <md-option ng-repeat="repeat in meals.possibleRepeats" value="{{ repeat.id }}">
-                {{repeat.name }}
-              </md-option>
-            </md-select>
-          </md-input-container>
+            <div layout="row">
+                <md-datepicker  ng-model="meals.mealAsked.date" md-placeholder="Fecha"></md-datepicker>
+                <span flex></span>
+                <md-datepicker  ng-if="meals.repeat" ng-model="meals.mealAsked.endDate" md-placeholder="Hasta"></md-datepicker>
+            </div>
 
-          <md-datepicker ng-model="meals.mealAsked.date" md-placeholder="Fecha">
-          </md-datepicker>
+            <div layout="row">
+            <span flex></span>
+            <md-button type="submit" flex="10" id="MealsButton" class="md-raised" ng-class="meals.MealError ? 'md-warn' : 'md-primary'" aria-label="Enviar">
+                <span>{{ meals.mealButtontext }}</span>
+            </md-button>
+            <span flex></span>
+            </div>
+        </form>
 
-          <md-datepicker ng-if="meals.repeat" ng-model="meals.mealAsked.endDate" md-placeholder="Hasta">
-          </md-datepicker>
+        <p ng-init="meals.getLastDay()">Fecha mínima actual: <b>{{meals.currentDate | date : 'dd-MM-yyyy' }}</b></p>
 
-        <md-button type="submit" id="MealsButton" class="md-raised" ng-class="meals.MealError ? 'md-warn' : 'md-primary'" aria-label="Enviar">
-        <span>{{ meals.mealButtontext }}</span>
-      </md-button>
-    </form>
-
-    <p ng-init="meals.getLastDay()">Fecha mínima actual: <b>{{meals.currentDate | date : 'dd-MM-yyyy' }}</b></p>
-
-    <h2>Mis pedidos</h2>
-    <md-divider ></md-divider>
-    <md-list-item class="md-3-line" ng-repeat="request in meals.myRequests| orderBy:'date'">
-        <div class="md-list-item-text">
-            <h3><b>{{ request.id }}</b></h3>
-            <h4>{{ request.change }}</h4>
-            <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
-        </div>
-        <md-button class="md-warn" ng-click="meals.deleteRequest(request._id)">Borrar</md-button>
-    </md-list-item>
-
-  </md-card-content>
+    </md-card-content>
 </md-card>
+
+
+<md-card ng-init="meals.myMeals()">
+    <md-card-content>
+        <h2>Mis pedidos</h2>
+        <md-divider ></md-divider>
+        <md-list-item class="md-3-line" ng-repeat="request in meals.myRequests| orderBy:'date'">
+            <div class="md-list-item-text">
+                <h3><b>{{ request.id }}</b></h3>
+                <h4>{{ request.change }}</h4>
+                <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
+            </div>
+            <md-button class="md-warn" ng-click="meals.deleteRequest(request._id)">Borrar</md-button>
+        </md-list-item>
+    </md-card-content>
+</md-card>
+
 
 <md-fab-speed-dial ng-if="$root.userData.meals == true" md-open="false" md-direction="up" ng-class="'md-fling md-fab-bottom-right customFab'">
     <md-fab-trigger>

@@ -1,7 +1,6 @@
 /*
     General styles
 */
-
 .normal{
     background-color:#f2f2f2;
 }
@@ -113,4 +112,21 @@ md-nav-item{
     .login img{
         height: 90px;
     }
+}
+
+.md-button.md-icon-button{
+    margin-left: -6px;
+    height: 24px;
+}
+.md-datepicker-input-container{
+    margin-left: -6px;
+}
+
+md-datepicker{
+    margin-bottom: 16px;
+}
+
+md-checkbox ._md-label {
+    position: absolute;
+    top: 40%;
 }

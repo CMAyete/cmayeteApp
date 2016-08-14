@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta lang="es">
   <title>CM Ayete</title>
 
   <!-- FOR ANGULAR ROUTING -->
@@ -12,6 +12,7 @@
    <meta name="mobile-web-app-capable" content="yes">
    <meta name="apple-mobile-web-app-capable" content="yes">
    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <meta name="theme-color" content="#3E2723">
    <link rel="icon" sizes="192x192" href="/launcher-icon-4x.png">
 
 
@@ -85,9 +86,7 @@
 <main ng-class="{login: !userData.isLogged, all: userData.isLogged}">
   <!-- ANGULAR VIEWS -->
   <div ng-view>
-    <md-content>
       <!--Here comes the view -->
-    </md-content>
   </div>
 </main>
 
