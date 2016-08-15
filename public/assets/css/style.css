@@ -8,6 +8,8 @@
 .all{
     padding-right: 13%;
     padding-left: 13%;
+    overflow: auto; 
+    height: 100%;
 }
 
 @media (max-width: 992px) {
@@ -28,10 +30,14 @@
 /*
     Navigation styles
 */
+md-toolbar{
+    height: 130px;
+}
 
 md-nav-bar{
     white-space: nowrap;
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 md-nav-item{

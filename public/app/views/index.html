@@ -62,33 +62,30 @@
   <!-- load bootstrap from CDN and custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body ng-app="cmayete" ng-controller="MainController as main" ng-class="{landing: !userData.isLogged, normal:userData.isLogged}" ng-cloak>
-
-<!-- NAVBAR -->
-<md-toolbar md-tall ng-if="userData.isLogged">
-  <div class="md-toolbar-tools">
-    <h2>
-      <span>CMAyete</span>
-    </h2>
+<body ng-app="cmayete" ng-controller="MainController as main" ng-class="{landing: !userData.isLogged, normal:userData.isLogged}" ng-cloak layout="column">
+  <!-- NAVBAR -->
+  <md-toolbar ng-if="userData.isLogged">
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>CMAyete</span>
+      </h2>
+      <span flex></span>
+      <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
+    </div>
     <span flex></span>
-    <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
-  </div>
-  <span flex></span>
-    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-      <md-nav-item md-nav-href="/meals" name="/meals">Comidas</md-nav-item>
-      <md-nav-item md-nav-href="/books" name="/books">Biblioteca</md-nav-item>
-      <md-nav-item md-nav-href="/sports" name="/sports">Deporte</md-nav-item>
-      <md-nav-item md-nav-href="/events" name="/events">Eventos</md-nav-item>
-      <md-nav-item md-nav-href="/settings" name="/settings">Ajustes</md-nav-item>
-    </md-nav-bar>
-</md-toolbar>
-
-<main ng-class="{login: !userData.isLogged, all: userData.isLogged}">
-  <!-- ANGULAR VIEWS -->
-  <div ng-view>
-      <!--Here comes the view -->
-  </div>
-</main>
-
+      <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-href="/meals" name="/meals" >Comidas</md-nav-item>
+        <md-nav-item md-nav-href="/books" name="/books" >Biblioteca</md-nav-item>
+        <md-nav-item md-nav-href="/sports" name="/sports" >Deporte</md-nav-item>
+        <md-nav-item md-nav-href="/events" name="/events" >Eventos</md-nav-item>
+        <md-nav-item md-nav-href="/settings" name="/settings" >Ajustes</md-nav-item>
+      </md-nav-bar>
+  </md-toolbar>
+  <main ng-class="{login: !userData.isLogged, all: userData.isLogged}" flex layout="column">
+    <!-- ANGULAR VIEWS -->
+    <div ng-view >
+        <!--Here comes the view -->
+    </div>
+  </main>
 </body>
 </html>
