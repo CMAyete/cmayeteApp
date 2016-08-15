@@ -52,7 +52,7 @@ md-nav-item{
     background-color: #795548 !important; 
 }
 .customFab .md-fab:hover md-icon{
-    color:#fff !important;
+    color: #ffffff !important;
 }
 
 /* 
@@ -121,11 +121,11 @@ md-nav-item{
 }
 
 .md-button.md-icon-button{
-    margin-left: -6px;
     height: 24px;
 }
 .md-datepicker-input-container{
-    margin-left: -6px;
+    margin-left: -12px;
+    margin-right: 12px;
 }
 
 md-datepicker{

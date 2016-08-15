@@ -1,4 +1,4 @@
-<md-content flex>
+<md-content class="normal" flex>
     <md-card>
         <md-card-content>
 
@@ -8,7 +8,7 @@
                         <label>Número</label>
                         <input name="clientName" type="number" ng-model="meals.mealAsked.id">
                     </md-input-container>
-                    <md-checkbox flex ng-model="meals.repeat" aria-label="Repetir">Repetir</md-checkbox>
+                    <md-checkbox flex ng-model="meals.repeat" aria-label="Repetir">Repetir cambio</md-checkbox>
                 </div>
 
                 <md-input-container>
@@ -30,9 +30,10 @@
                 </md-input-container>
 
                 <div layout="row">
-                    <md-datepicker  ng-model="meals.mealAsked.date" md-placeholder="Fecha"></md-datepicker>
                     <span flex></span>
+                    <md-datepicker  ng-model="meals.mealAsked.date" md-placeholder="Fecha"></md-datepicker>
                     <md-datepicker  ng-if="meals.repeat" ng-model="meals.mealAsked.endDate" md-placeholder="Hasta"></md-datepicker>
+                    <span flex></span>
                 </div>
 
                 <div layout="row">
