@@ -101,12 +101,10 @@
         </md-not-found>
       </md-autocomplete>
 
-
-
       <md-button type="submit" id="addBookButton" class="md-raised" ng-class="'md-primary'" aria-label="Enviar">
         <span>{{books.sendButtonText}}</span>
       </md-button>
+      <md-button ng-if="books.isUpdate" class="md-warn" ng-click="books.deleteBook(books.book._id)">Borrar</md-button>
     </form>
-
   </md-card-content>
 </md-card>
