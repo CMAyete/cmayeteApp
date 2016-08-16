@@ -1,24 +1,45 @@
 <md-card>
-  <md-card-content ng-init="settings.loadSettingsData()">
-  <md-list>
-    <md-list-item class="noright" ng-click="settings.gotoUsersList()">
-      <p>Ver lista de usuarios</p>
-    </md-list-item>
-    <md-list-item class="noright" ng-click="settings.gotoAddUser()">
-      <p>Añadir nuevo usuario</p>
-    </md-list-item>
-    <md-list-item ng-click="settings.openDial(settings.clearAll,'LastDate', $event)" class="noright">
-      <p>Resetear la última fecha de comidas (<b>{{settings.settingsData.lastMealsDate | date:'dd/MM/yyyy'}}</b>)</p>
-    </md-list-item>
-    <md-list-item ng-click="settings.openDial(settings.clearAll,'Meal', $event)" class="noright">
-      <p>Borrar todas las comidas (<b>{{settings.settingsData.mealsInDB}}</b>)</p>
-    </md-list-item>
-    <md-list-item ng-click="settings.openDial(settings.clearAll,'User', $event)" class="noright">
-      <p>Borrar todos los usuarios (<b>{{settings.settingsData.usersInDB}}</b>)</p>
-    </md-list-item>
-    <md-list-item ng-click="settings.openDial(settings.clearAll,'Book', $event)" class="noright">
-      <p>Borrar todos los libros (<b>{{settings.settingsData.booksInDB}}</b>)</p>
-    </md-list-item>
-  </md-list>
-  </md-card-content>
+    <md-card-content ng-init="settings.loadSettingsData()">
+        <md-list>
+            <md-list-item class="md-2-line" ng-click="settings.gotoUsersList()">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Ver lista de usuarios</h3>
+                </div>
+            </md-list-item>
+
+            <md-list-item class="noright md-2-line" ng-click="settings.gotoAddUser()">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Añadir nuevo usuario</h3>
+                </div>
+            </md-list-item>
+
+            <md-list-item ng-click="settings.openDial(settings.clearAll,'LastDate', $event)" class="noright md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Resetear la última fecha de comidas</h3>
+                    <p>La última fecha actual es el {{settings.settingsData.lastMealsDate | date:'dd/MM/yyyy'}}</p>
+                </div>
+            </md-list-item>
+
+            <md-list-item ng-click="settings.openDial(settings.clearAll,'Meal', $event)" class="noright md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Borrar todas las comidas</h3>
+                    <p>Hay {{settings.settingsData.mealsInDB}} comidas registradas en la base de datos</p>
+                </div>
+            </md-list-item>
+
+            <md-list-item ng-click="settings.openDial(settings.clearAll,'User', $event)" class="noright md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Borrar todos los usuarios</h3>
+                    <p>Hay {{settings.settingsData.usersInDB}} usuarios registrados en la base de datos</p>
+                </div>
+            </md-list-item>
+
+            <md-list-item ng-click="settings.openDial(settings.clearAll,'Book', $event)" class="noright md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Borrar todos los libros</h3>
+                    <p>Hay {{settings.settingsData.booksInDB}} libros registrados en la base de datos</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
 </md-card>
