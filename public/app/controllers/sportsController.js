@@ -41,7 +41,6 @@ angular.module('sportsCtrl', ['ngMaterial',])
     Sport.all(vm.currentPage)
       .success(function(data) {
         vm.processing = false;
-        console.log(data.matches);
         vm.matches = data.matches;
         vm.numPages = data.nump;
       });
@@ -105,6 +104,15 @@ angular.module('sportsCtrl', ['ngMaterial',])
   vm.editMatch = function(match_id){
     Sport.setcurrentEditSport(match_id);
     $location.path("/addSport");
+  }
+
+  vm.playersNum = function(match){
+    var totalCount = 0;
+    var i=0;
+    for(i=0;i<match.numberOfTeams;++i){
+      totalCount += Object.keys(match.playersList[0][i]).length;
+    }
+    return totalCount;
   }
 
 
