@@ -132,9 +132,18 @@ md-datepicker{
     margin-bottom: 16px;
 }
 
-md-checkbox ._md-label {
-    position: absolute;
-    top: 40%;
+@media (min-width: 960px) {
+    md-checkbox ._md-label {
+        position: absolute;
+        top: 40%;
+    }
+}
+
+@media (max-width: 960px) {
+    #mealreq md-checkbox ._md-label {
+        position: absolute;
+        top: 40%;
+    }
 }
 
 md-input-container{
