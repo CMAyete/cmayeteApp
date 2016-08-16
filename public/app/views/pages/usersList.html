@@ -16,13 +16,13 @@
                       <p ng-if="user.hasDiet">Descripción de la dieta: {{ user.dietContent }}</p>
                       <p ng-if="!user.hasDiet">No tiene régimen especial de comidas</p>
                   </div>
-                  <md-button class="md-icon-button" ng-if="$root.userData.library == true" aria-label="Editar usuario" style="margin-top:16px;" ng-click="settings.editUser(user._id)">
+                  <md-button class="md-icon-button" ng-if="$root.userData.admin == true" aria-label="Editar usuario" style="margin-top:16px;" ng-click="settings.editUser(user._id)">
                       <md-icon class="material-icons" aria-label="Editar usuario">create</md-icon>
                   </md-button>
               </md-list-item>
           </md-list>
           <div layout="row" layout-xs="column" layout-gt-xs-align="start end">
-              <span flex="noshrink" ng-if="sports.matches.length != 0">
+              <span flex="noshrink" ng-if="settings.users.length != 0">
                   <md-button class="md-raised md-primary" ng-disabled="settings.currentPage == 1" ng-click="settings.prevPressed()">Anterior</md-button>
                   <span class="md-subhead" >{{settings.currentPage}}/{{settings.numPages}}</span>
                   <md-button class="md-raised md-primary" ng-disabled="settings.currentPage >= settings.numPages" ng-click="settings.nextPressed()">Siguiente</md-button>
