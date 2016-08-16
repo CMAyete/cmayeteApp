@@ -20,7 +20,10 @@
             <md-button class="md-raised md-primary" ng-disabled="sports.currentPage >= sports.numPages" ng-click="sports.nextPressed()">Siguiente</md-button>
         </span>
         <span flex></span>
-            <md-button class="md-raised md-primary" href="/addSport">Crear nuevo</md-button>
+        <span layout="row">
+          <span flex></span>
+          <md-button class="md-raised md-primary" href="/addSport">Crear nuevo</md-button>
+          <span flex></span>
         </span>
     </div>
   </md-card-content>
