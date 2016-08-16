@@ -423,7 +423,7 @@ module.exports = function(app, express, passport) {
       Book.findOneAndUpdate({_id: req.params.book_id},{
         numero: req.body.numero,
         letra: req.body.letra,
-        apellidos: req.body.apellido,
+        apellidos: req.body.apellidos,
         nombre: req.body.nombre,
         titulo: req.body.titulo,
         idioma: req.body.idioma,
