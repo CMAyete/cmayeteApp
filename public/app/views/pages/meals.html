@@ -55,12 +55,12 @@
         <md-card-content>
             <h2 class="md-headline">Mis pedidos</h2>
             <md-divider ></md-divider>
-            <md-list-item class="md-3-line" ng-repeat="request in meals.myRequests| orderBy:'date'" layout="row">
+            <md-list-item class="md-2-line" ng-repeat="request in meals.myRequests| orderBy:'date'" layout="row">
                 <div class="md-list-item-text" layout="column" flex>
                     <h3>{{ request.change }}</h3>
                     <p>{{ request.date | date:'dd-MM-yyyy' }}</p>
                 </div>
-                <md-button class="md-icon-button" aria-label="Borrar" style="margin-top:22px;" ng-click="meals.deleteRequest(request._id)">
+                <md-button class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="meals.deleteRequest(request._id)">
                     <md-icon class="material-icons" aria-label="Actualizar fecha mínima">delete</md-icon>
                 </md-button>
             </md-list-item>
