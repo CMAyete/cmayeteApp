@@ -136,3 +136,7 @@ md-checkbox ._md-label {
     position: absolute;
     top: 40%;
 }
+
+md-input-container{
+    width: 100%;
+}
