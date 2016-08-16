@@ -125,7 +125,6 @@ angular.module('mealCtrl',[])
     Meal.delete(id)
       .success(function(data) {
         vm.myMeals();
-        vm.getMeals();
     });
   };
 
