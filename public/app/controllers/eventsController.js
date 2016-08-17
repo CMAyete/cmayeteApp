@@ -3,7 +3,13 @@ angular.module('eventsCtrl', ['ngMaterial'])
 .controller('EventsController', function(Events,_env) {
   var vm = this;
 
+  vm.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
   vm.maxDate = new Date();
+
+  vm.list = [];
 
   vm.getEvents = function(){
     return Events.mainCal('ayete.es_pu5p3ltp22t89tvn783vuoph84@group.calendar.google.com',_env.GCalendarAPIKey,3)
@@ -12,7 +18,7 @@ angular.module('eventsCtrl', ['ngMaterial'])
                 e = prepareDates(e);
               });
               vm.list = data.data.items;
-              vm.maxDate = vm.list[vm.list.length-1].end.date;
+              vm.maxDate = vm.list[vm.list.length-1].end.dateTime;
               vm.getOtherCals('ayete.es_rj8b8qv272ja3th2lf1f4cuc38@group.calendar.google.com');
               vm.getOtherCals('ayete.es_fc18psm9lvh9d2dbn9a4c7uocc@group.calendar.google.com');
             });
@@ -49,6 +55,11 @@ angular.module('eventsCtrl', ['ngMaterial'])
       item.start.wholeDay = true;
     }else{
       item.start.wholeDay = false;
+    }
+    if(!item.start.wholeDay && item.end.dateTime.getDay() != item.start.dateTime.getDay()){
+      item.start.manyDays = true;
+    }else{
+      item.start.manyDays = false;
     }
     return item;
   }
