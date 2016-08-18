@@ -40,6 +40,14 @@
                     <p>Hay {{settings.settingsData.booksInDB}} libros registrados en la base de datos</p>
                 </div>
             </md-list-item>
+
+            <md-list-item ng-click="settings.openDial(settings.clearAll,'Sport', $event)" class="noright md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Borrar todos los partidos</h3>
+                    <p>Hay {{settings.settingsData.matchesInDB}} partidos registrados en la base de datos</p>
+                </div>
+            </md-list-item>
+
         </md-list>
     </md-card-content>
 </md-card>

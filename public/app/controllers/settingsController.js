@@ -8,6 +8,7 @@ angular.module('settingsCtrl', ['ngMaterial',])
     mealsInDB: 0,
     usersInDB: 0,
     booksInDB: 0,
+    matchesInDB: 0,
   }
 
   vm.user = {

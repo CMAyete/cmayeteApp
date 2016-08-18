@@ -319,7 +319,16 @@ module.exports = function(app, express, passport) {
                   }
                 });
       }
-      Promise.all([countMeals(), countUsers(), countBooks()]).then(function(){
+      function countSports(){
+        return Sport.count({},function(err, data) {
+                  if (err){
+                    return err;
+                  }else{
+                    response.matchesInDB = data;
+                  }
+                });
+      }
+      Promise.all([countMeals(), countUsers(), countBooks(), countSports()]).then(function(){
         response.lastMealsDate = minimumMealsDay;
         res.json(response);
       });
@@ -352,6 +361,14 @@ module.exports = function(app, express, passport) {
         });
       }else if(collection == 'LastDate'){
         minimumMealsDay = new Date('01/01/2000');
+      }else if(collection == 'Sport'){
+        Sport.remove({},function(err,data){
+          if(err){
+            return err;
+          }else{
+            res.json(data);
+          }
+        });
       }else{
         res.json('error');
       }
