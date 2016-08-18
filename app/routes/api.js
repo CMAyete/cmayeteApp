@@ -63,7 +63,7 @@ module.exports = function(app, express, passport) {
             res.cookie('cmayete', token);
             res.redirect('/meals');  
           }else{
-            res.redirect('/login');
+            res.redirect('/login#error');
           }
         });
       }
