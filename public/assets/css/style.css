@@ -199,3 +199,12 @@ time.icon span{
 /* 
     End calendar icon
 */
+
+.validation-messages {
+    font-size: 12px;
+    color: #dd2c00;
+}
+
+md-input.container .ng-invalid .ng-invalid-required {
+    border-color: rgb(221,44,0);
+}
