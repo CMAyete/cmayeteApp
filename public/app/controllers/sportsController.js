@@ -19,7 +19,7 @@ angular.module('sportsCtrl', ['ngMaterial',])
   	startTime: new Date(),
   	endTime: new Date(),
   	isLocked: false,
-  	playersList: [1][''],
+  	playersList: {},
     waitingList: false,
   }
 
@@ -110,7 +110,9 @@ angular.module('sportsCtrl', ['ngMaterial',])
     var totalCount = 0;
     var i=0;
     for(i=0;i<match.numberOfTeams;++i){
-      totalCount += Object.keys(match.playersList[0][i]).length;
+      if(match.playersList[0] && match.playersList[0][i]){
+        totalCount += Object.keys(match.playersList[0][i]).length;
+      }
     }
     return totalCount;
   }
