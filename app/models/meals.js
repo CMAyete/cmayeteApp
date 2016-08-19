@@ -5,7 +5,7 @@ var Schema       = mongoose.Schema;
 // Meal schema 
 var MealSchema   = new Schema({
   id:     {type:Number},
-  change: {type: String},
+  change: {type: Number},
   date:   {type: Date},
 });
 

@@ -1,6 +1,6 @@
 angular.module('mealCtrl',[])
 
-.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia) {
+.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia, $q) {
 
   var Meals = {};
   var vm=this;
@@ -8,6 +8,7 @@ angular.module('mealCtrl',[])
   vm.pickDate = new Date();
   vm.repeat = false;
   vm.endDate = new Date();
+  vm.currentDate = new Date();
 
   vm.possibleRepeats = [
     {id: 1, name: 'Cada día'},
@@ -15,85 +16,97 @@ angular.module('mealCtrl',[])
   ]
 
   vm.possibleRequests = [
-    { id: 'NoD', name: 'Tachar el desayuno' },
-    { id: 'NoK', name: 'Tachar la comida' },
-    { id: 'NoC', name: 'Tachar la cena' },
-    { id: 'D1',  name: 'Desayunar antes' },
-    { id: 'BD1', name: 'Bocadillos en primer turno' },
-    { id: 'BT1', name: 'Tupper en primer turno' },
-    { id: 'BD', name: 'Comer de Tupper' },
-    { id: 'BC', name: 'Bolsa de bocadillos antes de las 13:00' },
-    { id: 'K1', name: 'Comida de primer turno' },
-    { id: 'K2', name: 'Comida de segundo turno' },
-    { id: 'C2', name: 'Cena de segundo turno' },
+    /*  0 */ 'Tachar el desayuno' ,
+    /*  1 */ 'Tachar la comida',
+    /*  2 */ 'Tachar la cena',
+    /*  3 */ 'Desayunar antes',
+    /*  4 */ 'Bocadillos en primer turno',
+    /*  5 */ 'Tupper en primer turno',
+    /*  6 */ 'Comer de Tupper',
+    /*  7 */ 'Comer de Bocadillos',
+    /*  8 */ 'Bolsa de bocadillos antes de las 13:00',
+    /*  9 */ 'Comida de primer turno',
+    /* 10 */ 'Comida de segundo turno',
+    /* 11 */ 'Cena de segundo turno',
   ];
 
-  vm.dayBeforeIDkeys = ['NoD','D1','BD1','BT1','BD','BC'];
+  vm.dayBeforeIDkeys = [0,3,4,5,6,7];
 
-  vm.selectedRequest = { id: 'NoC', name: 'Tachar la cena' };
+  vm.selectedRequest = 2;
 
   vm.mealAsked = {};
+  vm.mealAsked.date = new Date();  
   vm.mealAsked.doRepeat = 0;
   vm.mealButtontext = 'Enviar';
 
   // Ask for a new meal change
   vm.askMeal = function() {
-  if(vm.dayBeforeIDkeys.indexOf(vm.mealAsked.change) !== -1){
-    vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()-1));
-  }
-  if(!vm.mealAsked.id || !vm.mealAsked.change || !vm.mealAsked.date || (vm.mealAsked.date < vm.currentDate)){
-    vm.mealButtontext = 'Error';
-    vm.mealError = true;
-
-    // Get the button back to normal  
-    $timeout(function(){
-      vm.mealButtontext = 'Enviar';
-      vm.mealError = false;
-    },3000);
-    
-  }else{
-    vm.processing = true;
-    vm.mealButtontext = '';
+  vm.processing = true;
+  vm.mealButtontext = '';
+  if(vm.verifyMeal()){
     if(vm.repeat){
-      var requestMeal = [{}];
+      var promiseArray = [];
       var i=0;
-      requestMeal[i] = angular.copy(vm.mealAsked);
-        while(requestMeal[i].date <= vm.mealAsked.endDate){
-        (function(request) {
-        Meal.create(request)
+      while(vm.mealAsked.date <= vm.mealAsked.endDate){
+        promiseArray.push(Meal.create(angular.copy(vm.mealAsked)));
+        vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()+Number(vm.mealAsked.doRepeat)));
+      }
+      $q.all(promiseArray)
+        .then(
+          function () {
+            vm.processing = false;
+            vm.mealButtontext = 'Enviado';
+            vm.myMeals();
+          },
+          function () {
+            vm.processing = false;
+            vm.mealButtontext = 'Error';
+            vm.mealError = true;
+          }
+        );
+      }else{
+        //Create the meal with special response to errors or success
+        Meal.create(vm.mealAsked)
           .success(function() {
             vm.processing = false;
             vm.mealButtontext = 'Enviado';
+            vm.myMeals();
           }).error(function() {
             vm.processing = false;
             vm.mealButtontext = 'Error';
             vm.mealError = true;
           });
-        })(requestMeal[i]);
-        ++i;
-        requestMeal[i] = angular.copy(vm.mealAsked);
-        requestMeal[i].date = new Date(requestMeal[i].date.setDate(requestMeal[i-1].date.getDate()+Number(vm.mealAsked.doRepeat)));  
       }
     }else{
-      //Create the meal with special response to errors or success
-      Meal.create(vm.mealAsked)
-        .success(function() {
-          vm.processing = false;
-          vm.mealButtontext = 'Enviado';
-          vm.myMeals();
-        }).error(function() {
-          vm.processing = false;
-          vm.mealButtontext = 'Error';
-          vm.mealError = true;
-        });
+      vm.mealButtontext = 'Error';
+      vm.mealError = true;
     }
     // Get the button back to normal  
     $timeout(function(){
-        vm.mealError = false;
-        vm.mealButtontext = 'Enviar';
-    },3000); 
-  };
+    vm.mealButtontext = 'Enviar';
+    vm.mealError = false;
+    },3000);
+  }
 
+  vm.verifyMeal = function(){
+    if(vm.dayBeforeIDkeys.indexOf(vm.mealAsked.change) !== -1){
+      vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()-1));
+    }
+    if(!vm.mealAsked.id || (!vm.mealAsked.change && vm.mealAsked.change!=0) || !vm.mealAsked.date){
+      return false;
+    }
+    if(vm.mealAsked.date < vm.currentDate){
+      return false;
+    }
+    if(vm.repeat){
+      if(vm.mealAsked.date >= vm.mealAsked.endDate){
+        return false;
+      }
+      if(vm.mealAsked.endDate < vm.currentDate){
+        return false;
+      }
+    }
+    return true;
   }
 
   vm.myMeals = function() {
@@ -102,7 +115,9 @@ angular.module('mealCtrl',[])
         vm.processing = false;
         data.map(function(e){
           e.date = new Date(e.date);
-          e = vm.modifyMealView(e);
+          if(vm.dayBeforeIDkeys.indexOf(e.change) != -1){
+            e.date = new Date(e.date.setDate(e.date.getDate()+1));
+          }
         });
         vm.myRequests = data;
       });
@@ -128,13 +143,6 @@ angular.module('mealCtrl',[])
     });
   };
 
-  vm.modifyMealView = function(meal){
-    if(vm.dayBeforeIDkeys.indexOf(meal.change) !== -1){
-      meal.date = meal.date.setDate(meal.date.getDate()+1);
-      meal.showDate = true;
-    }
-  }
-
   vm.checkDiets = function(meal){
     Meal.hasDiet(meal.id)
       .success(function(data){
@@ -156,7 +164,7 @@ angular.module('mealCtrl',[])
   vm.getLastDay = function() {
 	  Meal.getCurrentDate()
 	    .success(function(data) {
-	    	vm.currentDate = data;
+	    	vm.currentDate = new Date(data);
 	  	});
   };
 

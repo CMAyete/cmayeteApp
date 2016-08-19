@@ -13,7 +13,7 @@
                 <md-input-container>
                     <label>Cambio*</label>
                     <md-select name="selectChange" ng-model="meals.mealAsked.change" required>
-                        <md-option ng-repeat="request in meals.possibleRequests| orderBy: $index" ng-value="{{ $index }}">
+                        <md-option ng-repeat="request in meals.possibleRequests" ng-value="{{ $index }}">
                             {{request}}
                         </md-option>
                     </md-select>
@@ -71,7 +71,7 @@
             <md-divider></md-divider>
             <md-list-item class="md-2-line" ng-repeat="request in meals.myRequests| orderBy:'date'" layout="row">
                 <div class="md-list-item-text" layout="column" flex>
-                    <h3>{{ request.change }}</h3>
+                    <h3>{{ meals.possibleRequests[request.change] }}</h3>
                     <p>{{ request.date | date:'dd/MM/yyyy' }}</p>
                 </div>
                 <md-button class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="meals.deleteRequest(request._id)">
