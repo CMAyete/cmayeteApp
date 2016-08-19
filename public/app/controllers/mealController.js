@@ -116,7 +116,10 @@ angular.module('mealCtrl',[])
         data.map(function(e){
           e.date = new Date(e.date);
           if(vm.dayBeforeIDkeys.indexOf(e.change) != -1){
-            e.date = new Date(e.date.setDate(e.date.getDate()+1));
+            e.showDate = new Date();
+            e.showDate = new Date(e.showDate.setDate(e.date.getDate()+1));
+          }else{
+            e.showDate = e.date;
           }
         });
         vm.myRequests = data;
