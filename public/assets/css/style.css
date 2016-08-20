@@ -123,24 +123,21 @@ md-nav-item{
 .md-button.md-icon-button{
     height: 24px;
 }
-.md-datepicker-input-container{
-    margin-left: -12px;
+
+.md-icon-button+.md-datepicker-input-container {
+    margin-left: -10px;
     margin-right: 12px;
 }
 
-md-datepicker{
-    margin-bottom: 16px;
-}
-
 @media (min-width: 960px) {
-    md-checkbox ._md-label {
+    md-checkbox .md-label {
         position: absolute;
         top: 40%;
     }
 }
 
 @media (max-width: 960px) {
-    #mealreq md-checkbox ._md-label {
+    #mealreq md-checkbox .md-label {
         position: absolute;
         top: 40%;
     }

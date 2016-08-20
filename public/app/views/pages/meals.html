@@ -32,7 +32,7 @@
                 </md-input-container>
 
                 <div layout="row">
-                    <span flex></span>
+                    <span hide-xs flex></span>
                     <div style="text-align:center">
                     <md-datepicker name="startDate" ng-model="meals.mealAsked.date" md-placeholder="Fecha*" md-min-date="meals.currentDate" required></md-datepicker>
                         <div class="validation-messages" ng-messages="mealsForm.startDate.$touched && mealsForm.startDate.$error">
@@ -49,7 +49,7 @@
                             <div ng-message="mindate">La fecha introducida no puede ser menor a la inicial</div>
                         </div>
                     </div>
-                    <span flex></span>
+                    <span hide-xs flex></span>
                 </div>
 
                 <div layout="row">

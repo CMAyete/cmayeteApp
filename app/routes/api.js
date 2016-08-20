@@ -559,7 +559,7 @@ module.exports = function(app, express, passport) {
       Sport.remove({
         _id: req.params.sport_id
       },function(err, book) {
-          if (err) res.send(err);
+          if (err) return res.send(err);
           Sport.find(function(err, matches) {
             if (err){
               return err;

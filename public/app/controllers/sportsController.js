@@ -67,7 +67,7 @@ angular.module('sportsCtrl', ['ngMaterial',])
     Sport.delete(id)
       .success(function(data){
         vm.processing = false;
-        vm.getSports();
+        $location.path("/sports");
       });
   }
 

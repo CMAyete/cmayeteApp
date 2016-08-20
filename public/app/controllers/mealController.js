@@ -1,6 +1,6 @@
 angular.module('mealCtrl',[])
 
-.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia, $q) {
+.controller('MealController', function($rootScope,Meal,$timeout,$mdDialog,$mdMedia, $q, $window) {
 
   var Meals = {};
   var vm=this;
@@ -14,6 +14,8 @@ angular.module('mealCtrl',[])
     {id: 1, name: 'Cada día'},
     {id: 7, name: 'Cada semana'}
   ]
+
+  console.log($window.innerHeight);
 
   vm.possibleRequests = [
     /*  0 */ 'Tachar el desayuno' ,

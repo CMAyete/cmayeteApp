@@ -40,9 +40,8 @@
                 <md-checkbox flex="50" ng-model="sports.match.waitingList" aria-label="Lista de espera">Marcar último equipo como lista de espera</md-checkbox>
             </div>
 
-            <div layout="column" layout-gt-xs="row">
-                <md-datepicker class="md-block" flex-gt-xs="15" ng-model="sports.match.date" md-placeholder="Fecha" style="margin-top:12px;"></md-datepicker>
-
+            <div layout="column" layout-gt-xs="row"  >
+                <md-datepicker class="md-block" flex-gt-xs="50" ng-model="sports.match.date" md-placeholder="Fecha" style="margin-top:12px;"></md-datepicker>
                 <div class="md-block" flex-gt-xs="50" layout="row">
                     <md-input-container class="md-block" >
                         <label>Hora de inicio</label>
@@ -68,7 +67,7 @@
             </div>
 
             <md-button type="submit" id="addMatchButton" class="md-raised" ng-class="'md-primary'" aria-label="Enviar">{{sports.sendButtonText}}</md-button>
-            <md-button ng-if="sports.isUpdate" class="md-warn" ng-click="sports.deleteMatch(match._id)">Borrar</md-button>
+            <md-button ng-if="sports.isUpdate" class="md-warn" ng-click="sports.deleteMatch(sports.match._id)">Borrar</md-button>
         </form>
     </md-card-content>
 </md-card>
