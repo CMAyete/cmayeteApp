@@ -15,7 +15,13 @@ angular.module('mealCtrl',[])
     {id: 7, name: 'Cada semana'}
   ]
 
-  console.log($window.innerHeight);
+  vm.screenSize = $window.innerWidth;
+
+  $window.onresize = function(event){
+    $timeout(function(){
+      vm.screenSize = $window.innerWidth;
+    });
+  };
 
   vm.possibleRequests = [
     /*  0 */ 'Tachar el desayuno' ,
