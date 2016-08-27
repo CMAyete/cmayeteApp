@@ -160,8 +160,8 @@ time.icon{
   font-size: 0.4em; /* change icon size */
   display: block;
   position: relative;
-  width: 7em;
-  height: 7em;
+  width: 5.2em;
+  height: 5em;
   background-color: #fff;
   border-radius: 0.6em;
   box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
@@ -171,7 +171,6 @@ time.icon{
 time.icon *{
   display: block;
   width: 100%;
-  font-size: 1.3em;
   font-weight: bold;
   font-style: normal;
   text-align: center;
