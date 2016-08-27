@@ -26,7 +26,7 @@
             <md-button type="submit" id="addBookButton" class="md-raised" ng-class="'md-primary'" aria-label="Enviar">
                 <span>{{settings.sendButtonText}}</span>
             </md-button>
-            <md-button ng-if="settings.isUpdate" class="md-warn" ng-click="settings.deleteUser(user._id)">Borrar</md-button>
+            <md-button ng-if="settings.isUpdate" class="md-warn" ng-click="settings.deleteUser(settings.user._id)">Borrar</md-button>
         </form>
     </md-card-content>
 </md-card>

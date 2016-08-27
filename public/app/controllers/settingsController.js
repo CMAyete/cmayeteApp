@@ -47,14 +47,9 @@ angular.module('settingsCtrl', ['ngMaterial',])
   };
 
   if(Settings.getcurrentEditUser()){
-    console.log("Hola");
-    console.log(Settings.getcurrentEditUser());
     Settings.findUserbyIDNum(Settings.getcurrentEditUser()).then(function(data){
       vm.user = data.data;
-      console.log("data " + data.data);
-      console.log(vm.user);
     });
-    console.log(vm.user);
     vm.isUpdate = true;
     vm.sendButtonText = 'Actualizar';
   }
@@ -68,7 +63,6 @@ angular.module('settingsCtrl', ['ngMaterial',])
           .cancel('Cancelar')
           .targetEvent(event);
     $mdDialog.show(confirm).then(function() {
-      console.log(typeof execFunction)
       execFunction(collection);
     });
   };
@@ -94,11 +88,11 @@ angular.module('settingsCtrl', ['ngMaterial',])
 
   vm.deleteUser = function(id){
     vm.processing = true;
-    console.log(id);
     Settings.delete(id)
       .success(function(data){
         vm.processing = false;
         vm.users = data;
+        $location.path("/usersList");
       });
   }
 
@@ -111,7 +105,6 @@ angular.module('settingsCtrl', ['ngMaterial',])
   }
 
   vm.addNewUser = function(){
-    console.log(vm.user);
     Settings.create(vm.user).success(function(data){
       vm.sendButtonText = 'Enviado';
     });
