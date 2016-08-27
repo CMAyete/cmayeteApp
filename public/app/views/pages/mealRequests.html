@@ -8,7 +8,7 @@
       <md-subheader class="md-no-sticky">Comidas</md-subheader>
       <md-list-item class="md-2-line" ng-repeat="(key, value) in meals.requests| groupBy: 'change' as requests">
           <div class="md-list-item-text">
-            <h3>{{ key }}: <b>{{requests[key].length}}</b></h3>
+            <h3>{{ meals.possibleRequests[key] }}: <b>{{requests[key].length}}</b></h3>
             <p ng-repeat="user in value" style="display:inline">{{ user.id }}<span ng-if="user.dietMeal">(Dieta)</span> </p>
           </div>
       </md-list-item>
