@@ -542,7 +542,9 @@ module.exports = function(app, express, passport) {
 
     .get(function(req, res) {
       var currentPage = req.query.page-1;
-      Sport.find(function(err, matches) {
+      Sport.find({
+        date: {$gte : new Date(new Date().setDate(new Date().getDate()-2))}
+      },function(err, matches) {
         if (err){
           return err;
         }else{
