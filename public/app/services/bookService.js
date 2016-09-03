@@ -74,6 +74,10 @@ angular.module('BookService', [])
   BookFactory.getcurrentEditBook = function(){
     return savedBook;
   }
+
+  BookFactory.clearcurrentEditBook = function(){
+    savedBook = null;
+  }
   
   return BookFactory;
 

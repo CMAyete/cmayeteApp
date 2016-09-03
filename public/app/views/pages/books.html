@@ -2,7 +2,7 @@
     <md-card-content ng-init="books.getBooks()">
         <div layout="row">
             <md-input-container class="md-block" flex>
-                <label>Título, nombre o apellidos del autor</label>
+                <label>Título o autor</label>
                 <input ng-model="books.searchAll" ng-change="books.getBooks()" ng-model-options="{debounce: 500}">
             </md-input-container>
             <div style="margin-top:10px;">
@@ -46,7 +46,7 @@
         <md-button aria-label="Lista de libros" class="md-fab md-raised md-mini" href="/booksTaken">
             <md-icon class="material-icons" aria-label="Lista de libros">format_list_bulleted</md-icon>
         </md-button>
-        <md-button aria-label="Añadir libro" class="md-fab md-raised md-mini" href="/addBook">
+        <md-button aria-label="Añadir libro" class="md-fab md-raised md-mini" ng-click="books.addBook()">
             <md-icon class="material-icons" aria-label="Añadir libro">add</md-icon>
         </md-button>
     </md-fab-actions>

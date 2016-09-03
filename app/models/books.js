@@ -13,6 +13,7 @@ var BookSchema   = new Schema({
   lugar:   {type: String},
   enUso:   {type: Number},
   fecha: {type: Date},
+  fullAuthor: {type: String},
 });
 
 module.exports = mongoose.model('book', BookSchema);

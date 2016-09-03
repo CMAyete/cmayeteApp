@@ -29,13 +29,9 @@ angular.module('bookCtrl', ['ngMaterial'])
   };
 
   if(Book.getcurrentEditBook()){
-    console.log("Hola");
-    console.log(Book.getcurrentEditBook());
     Book.findBookbyIDNum(Book.getcurrentEditBook()).then(function(data){
       vm.book = data.data;
-      console.log(vm.book);
     });
-    console.log(vm.book);
     vm.isUpdate = true;
     vm.sendButtonText = 'Actualizar';
   }
@@ -54,16 +50,28 @@ angular.module('bookCtrl', ['ngMaterial'])
     Book.delete(id)
       .success(function(data){
         vm.processing = false;
-        vm.books = data;
+        $location.path("/books");
       });
   }
   
   vm.addNew = function(){
-    Book.create(vm.book);
+    Book.create(vm.book)
+      .success(function(){
+        $location.path("/books");
+      })
+      .error(function(){
+        vm.sendButtonText = 'Error';
+      });
   }
 
   vm.editedBook = function(){
-    Book.updateBookByID(vm.book._id,vm.book);
+    Book.updateBookByID(vm.book._id,vm.book)
+      .success(function(){
+        $location.path("/books");
+      })
+      .error(function(){
+        vm.sendButtonText = 'Error';
+      });
   }
 
   vm.nextPressed = function(){
@@ -104,7 +112,6 @@ angular.module('bookCtrl', ['ngMaterial'])
     Book.manageMyBook(id,$rootScope.userData.number)
       .success(function(data) {
         vm.processing = false;
-        console.log("Hola");
         vm.getBooks();
       });
   }
@@ -113,7 +120,6 @@ angular.module('bookCtrl', ['ngMaterial'])
     Book.manageMyBook(id,null)
       .success(function(data) {
         vm.processing = false;
-        console.log("Hola");
         vm.getUserBooks();
       });
   }
@@ -125,6 +131,11 @@ angular.module('bookCtrl', ['ngMaterial'])
         vm.books = data.books;
         vm.numPages = data.nump;
     });
+  }
+
+  vm.addBook = function(){
+    Book.clearcurrentEditBook();
+    $location.path("/addBook");
   }
 
   vm.editBook = function(book_id){
