@@ -176,6 +176,7 @@ angular.module('mealCtrl',[])
 	  Meal.getCurrentDate()
 	    .success(function(data) {
 	    	vm.currentDate = new Date(data);
+        vm.currentDate.setHours(0,0,0,0);
 	  	});
   };
 
