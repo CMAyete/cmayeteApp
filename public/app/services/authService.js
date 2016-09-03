@@ -35,7 +35,6 @@ angular.module('AuthService', ['ngCookies','angular-jwt'])
       var token = $cookies.get('cmayete');
       config.headers = config.headers || {};
       if (token) {
-        console.log(token);
         config.headers['x-access-token'] = token;
       }
       return config;

@@ -57,7 +57,7 @@ module.exports = function(app, express, passport) {
                                   library: userData.library,
                                   },
                                   secret,{
-                                    expiresIn: 11520 // expires in 8 days
+                                    expiresIn: "15d" // expires in 8 days
                                   });
 
             res.cookie('cmayete', token);
@@ -76,6 +76,7 @@ module.exports = function(app, express, passport) {
     if (token) {
       jwt.verify(token, secret, function(err, decoded) {      
         if (err) {
+          res.clearCookie('cmayete');
           res.status(403).send({ 
             success: false, 
             message: 'Auth error.', 
@@ -84,8 +85,22 @@ module.exports = function(app, express, passport) {
           req.decoded = decoded;
           User.findOne({'email':req.decoded.email},function(err,userfound){
           if(userfound || req.decoded.email == defaultUserMail){
+                        var token = jwt.sign({
+                                  number: req.decoded.number,
+                                  isLogged: true,
+                                  email: req.decoded.email,
+                                  admin: req.decoded.admin,
+                                  meals: req.decoded.meals,
+                                  library: req.decoded.library,
+                                  },
+                                  secret,{
+                                    expiresIn: "15d" // expires in 8 days
+                                  });
+
+            res.cookie('cmayete', token);
             next();
           }else{
+            res.clearCookie('cmayete');
             return res.status(403).send({ 
               success: false, 
               message: 'Invalid User' 
@@ -185,7 +200,7 @@ module.exports = function(app, express, passport) {
 
   // update the date with this id
   .put(function(req, res) {
-        minimumMealsDay = new Date();
+        minimumMealsDay = new Date(new Date().setDate(new Date().getDate()+1));
         //process.env.MINDAY = minimumMealsDay;
         //console.log(MINDAY);
         // return a message
@@ -386,6 +401,7 @@ module.exports = function(app, express, passport) {
       book.titulo = req.body.titulo;
       book.idioma = req.body.idioma;
       book.lugar = req.body.lugar;
+      book.fullAuthor = req.body.nombre + ' ' + req.body.apellido;
       book.save(function(err){
         if(err){
           if (err.code == 11000) 
@@ -403,16 +419,14 @@ module.exports = function(app, express, passport) {
       var currentPage = req.query.page-1;
       Book.find( { $or: [
                     {"titulo":    { "$regex": exp, "$options": "i" }}, 
-                    {"nombre":    { "$regex": exp, "$options": "i" }}, 
-                    {"apellidos": { "$regex": exp, "$options": "i" }}
+                    {"fullAuthor":    { "$regex": exp, "$options": "i" }}, 
                   ]},function(err, books) {
         if (err){
           return err;
         }else{
           Book.find({ $or: [
                       {"titulo":    { "$regex": exp, "$options": "i" }}, 
-                      {"nombre":    { "$regex": exp, "$options": "i" }}, 
-                      {"apellidos": { "$regex": exp, "$options": "i" }}
+                      {"fullAuthor":    { "$regex": exp, "$options": "i" }}, 
                     ]}).count().exec(function (err,count) {
                     var nump = Math.ceil(count/10);
                     return res.json({books,nump});
@@ -445,6 +459,7 @@ module.exports = function(app, express, passport) {
         titulo: req.body.titulo,
         idioma: req.body.idioma,
         lugar: req.body.lugar,
+        fullAuthor: req.body.nombre + ' ' + req.body.apellido,
       },function(err, data) {
         if (err){
           return err;
