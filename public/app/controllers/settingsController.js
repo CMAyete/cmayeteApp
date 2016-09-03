@@ -110,6 +110,11 @@ angular.module('settingsCtrl', ['ngMaterial',])
     });
   }
 
+  vm.addUser = function(){
+    Settings.clearcurrentEditUser();
+    $location.path("/addUser");
+  }
+
   vm.editUser = function(user_id){
     Settings.setcurrentEditUser(user_id);
     $location.path("/addUser");

@@ -56,6 +56,9 @@ angular.module('SettingsService', [])
     return savedUser;
   }
 
+  SettingsFactory.clearcurrentEditUser = function(){
+    savedUser = null;
+  }
   
   return SettingsFactory;
 
