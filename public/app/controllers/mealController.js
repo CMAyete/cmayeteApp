@@ -55,7 +55,7 @@ angular.module('mealCtrl',[])
     if(vm.repeat){
       var promiseArray = [];
       var i=0;
-      while(vm.mealAsked.date <= vm.mealAsked.endDate){
+      while(vm.mealAsked.date <= vm.mealAsked.endDate && promiseArray.length < 15){
         promiseArray.push(Meal.create(angular.copy(vm.mealAsked)));
         vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()+Number(vm.mealAsked.doRepeat)));
       }
