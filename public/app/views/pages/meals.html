@@ -93,7 +93,7 @@
                     <h3>{{ meals.possibleRequests[request.change] }}</h3>
                     <p>{{ request.showDate | date:'dd/MM/yyyy' }}</p>
                 </div>
-                <md-button ng-show="request.date > meals.currentDate" class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="meals.deleteRequest(request._id)">
+                <md-button ng-show="request.date >= meals.currentDate" class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="meals.deleteRequest(request._id)">
                     <md-icon class="material-icons" aria-label="Borrar cambio">delete</md-icon>
                 </md-button>
             </md-list-item>
