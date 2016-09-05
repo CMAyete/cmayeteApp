@@ -10,7 +10,6 @@ var config     = require('../config/config');
 // keys and data
 // ================
 var secret    = process.env.SECRET || config.secret;
-var normalkey    = process.env.NORMALKEY || config.normalkey;
 var minimumMealsDay = process.env.MINDAY || new Date().setTime(config.minday);
 var defaultUserMail = process.env.DEFAULTUSER || config.defaultUser;
 

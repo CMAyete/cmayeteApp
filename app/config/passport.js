@@ -1,5 +1,8 @@
 var config     = require('./config');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var GClientID = process.env.GCLIENTID || config.googleAuth.clientID;
+var GClientSecret = process.env.GCLIENTSECRET || config.googleAuth.clientSecret;
+var GCallback = process.env.GCALLBACK || config.googleAuth.callbackURL;
 
 
 // Use the GoogleStrategy within Passport.
@@ -9,9 +12,9 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 module.exports = function(passport){
 
 	passport.use(new GoogleStrategy({
-	    clientID: config.googleAuth.clientID,
-	    clientSecret: config.googleAuth.clientSecret,
-	    callbackURL: "http://127.0.0.1:8080/api/auth/google/callback"
+	    clientID: GClientID,
+	    clientSecret: GClientSecret,
+	    callbackURL: GCallback
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    return done(null, profile.emails[0].value);
