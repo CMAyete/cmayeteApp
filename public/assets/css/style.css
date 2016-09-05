@@ -192,6 +192,22 @@ time.icon span{
   color: #2f2f2f;
 }
 
+@media (max-width: 768px) {
+  time.icon{
+    font-size: 0.5em; /* change icon size */
+  }
+
+  time.icon strong{
+    border-top-right-radius: 0.6em;
+    border-top-left-radius: 0.6em;
+  }
+
+  time.icon span{
+    font-size: 2.5em;
+    padding-top: 0.8em;
+  }
+}
+
 /* 
     End calendar icon
 */
