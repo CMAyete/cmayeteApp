@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Internal web application for a students hall of residence",
   "main": "server.js",
+  "engines": {
+    "node": "6.2.2",
+    "npm": "3.10.5"
+  },
   "scripts": {
     "start": "node server.js"
   },
