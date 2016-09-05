@@ -7,14 +7,35 @@
   <!-- FOR ANGULAR ROUTING -->
   <base href="/">
 
-  <!-- Mobile Web App -->
-   <meta name="viewport" content="width=device-width">
-   <meta name="mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-   <meta name="theme-color" content="#3E2723">
-   <link rel="icon" sizes="192x192" href="/launcher-icon-4x.png">
+  <!-- Android Web App -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
 
+  <!-- iOS Web App -->
+  <!-- Allow web app to be run in full-screen mode. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Make the app title different than the page title. -->
+  <meta name="apple-mobile-web-app-title" content="CM Ayete">
+  <!-- Configure the status bar. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Set the viewport. -->
+  <meta name="viewport" content="initial-scale=1">
+  <!-- Disable automatic phone number detection. -->
+  <meta name="format-detection" content="telephone=no">
+  <!-- iPad retina icon -->
+  <link href="assets/appItems/icons/ios/152.png" sizes="152x152" rel="apple-touch-icon-precomposed">
+  <!-- iPad retina icon (iOS < 7) -->
+  <link href="assets/appItems/icons/ios/144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
+  <!-- iPad non-retina icon -->
+  <link href="assets/appItems/icons/ios/76.png" sizes="76x76" rel="apple-touch-icon-precomposed">
+  <!-- iPad non-retina icon (iOS < 7) -->
+  <link href="assets/appItems/icons/ios/72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
+  <!-- iPhone 6 Plus icon -->
+  <link href="assets/appItems/icons/ios/120.png" sizes="120x120" rel="apple-touch-icon-precomposed">
+  <!-- iPhone retina icon (iOS < 7) -->
+  <link href="assets/appItems/icons/ios/114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+  <!-- iPhone non-retina icon (iOS < 7) -->
+  <link href="assets/appItems/icons/ios/57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
 
   <!-- JS -->
   <script src="app/env.js"></script>
@@ -67,7 +88,7 @@
   <md-toolbar ng-if="userData.isLogged">
     <div class="md-toolbar-tools">
       <h2>
-        <span>CMAyete</span>
+        <span>C.M. Ayete</span>
       </h2>
       <span flex></span>
       <a href="#" ng-click="main.logOut()"><md-button>Cerrar Sesión</md-button></a>
