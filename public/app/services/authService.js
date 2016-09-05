@@ -18,6 +18,7 @@ angular.module('AuthService', ['ngCookies','angular-jwt'])
         userData.meals = decoded.meals;
         userData.library = decoded.library;
         userData.admin = decoded.admin;
+        userData.GCalendarAPI = decoded.calendarAPI;
     }
   }
 

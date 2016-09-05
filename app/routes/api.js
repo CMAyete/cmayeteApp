@@ -12,6 +12,7 @@ var config     = require('../config/config');
 var secret    = process.env.SECRET || config.secret;
 var minimumMealsDay = process.env.MINDAY || new Date().setTime(config.minday);
 var defaultUserMail = process.env.DEFAULTUSER || config.defaultUser;
+var GCalendarAPI = process.env.GCALKEY || config.gCalApiKey;
 
 // API Code
 // =========
@@ -35,11 +36,11 @@ module.exports = function(app, express, passport) {
                               admin:true,
                               meals:true,
                               library:true,
+                              calendarAPI: GCalendarAPI,
                               },
                               secret,{
                                 expiresIn: 11520 // expires in 8 days
                               });
-
         res.cookie('cmayete', token);
         res.redirect('/meals');
       }else{
@@ -54,6 +55,7 @@ module.exports = function(app, express, passport) {
                                   admin: userData.admin,
                                   meals: userData.meals,
                                   library: userData.library,
+                                  calendarAPI: GCalendarAPI,
                                   },
                                   secret,{
                                     expiresIn: "15d" // expires in 8 days
@@ -91,6 +93,7 @@ module.exports = function(app, express, passport) {
                                   admin: req.decoded.admin,
                                   meals: req.decoded.meals,
                                   library: req.decoded.library,
+                                  calendarAPI: GCalendarAPI,
                                   },
                                   secret,{
                                     expiresIn: "15d" // expires in 8 days

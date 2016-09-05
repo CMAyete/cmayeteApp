@@ -1,6 +1,6 @@
 angular.module('eventsCtrl', ['ngMaterial'])
 
-.controller('EventsController', function(Events,_env) {
+.controller('EventsController', function($rootScope,Events) {
   var vm = this;
 
   vm.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -12,7 +12,7 @@ angular.module('eventsCtrl', ['ngMaterial'])
   vm.list = [];
 
   vm.getEvents = function(){
-    return Events.mainCal('ayete.es_pu5p3ltp22t89tvn783vuoph84@group.calendar.google.com',_env.GCalendarAPIKey,3)
+    return Events.mainCal('ayete.es_pu5p3ltp22t89tvn783vuoph84@group.calendar.google.com',$rootScope.userData.GCalendarAPI,3)
             .then(function(data){
               data.data.items.map(function(e){
                 e = prepareDates(e);
@@ -25,7 +25,7 @@ angular.module('eventsCtrl', ['ngMaterial'])
   }
 
   vm.getOtherCals = function(calendarURL){
-    return Events.otherCals(calendarURL,_env.GCalendarAPIKey,vm.maxDate)
+    return Events.otherCals(calendarURL,$rootScope.userData.GCalendarAPI,vm.maxDate)
             .then(function(data){
               data.data.items.map(function(e){
                 e = prepareDates(e);

@@ -1,10 +1,3 @@
-// Import enviroment variables
-var __env = {};
-
-if(window){  
-  Object.assign(__env, window.__env);
-}
-
 angular.module('cmayete', ['ngAnimate', 'ngMessages', 'app.routes', 'AuthService', 'mainCtrl','ngMaterial','angular-jwt','mealCtrl', 'MealService', 'settingsCtrl', 'SettingsService','bookCtrl', 'BookService','angular.filter','eventsCtrl','EventsService','sportsCtrl','SportsService'])
 
 .config(function($mdThemingProvider) {
@@ -44,8 +37,6 @@ angular.module('cmayete', ['ngAnimate', 'ngMessages', 'app.routes', 'AuthService
     }
   });
 })
-
-.constant('_env', _env)
 
 /* 
   Directive from https://mark.zealey.org/2015/01/08/formatting-time-inputs-nicely-with-angularjs
