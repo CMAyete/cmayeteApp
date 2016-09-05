@@ -16,7 +16,7 @@ angular.module('app.routes', ['ngRoute'])
     })
 
     .when('/mealrequests', {
-      templateUrl : 'app/views/pages/mealrequests.html',
+      templateUrl : 'app/views/pages/mealRequests.html',
       controller  : 'MealController',
           controllerAs: 'meals',
       data: {
