@@ -5,7 +5,7 @@ var User       = require('../models/users');
 var Book       = require('../models/books');
 var Sport      = require('../models/sports');
 var jwt        = require('jsonwebtoken');
-var config     = require('../config/config');
+//var config     = require('../config/config');
 
 // keys and data
 // ================
