@@ -6,7 +6,7 @@
             <div class="md-list-item-text" layout="column">
                 <h3>{{ match.name }}</h3>
                 <h4>{{ match.date | date : 'dd/MM/yyyy'  }}</h4>
-                <p>{{ match.startTime | date : 'HH:MM'  }}-{{ match.endTime | date : 'HH:MM'  }} {{sports.playersNum(match)}}/{{match.numberOfTeams * match.playersPerTeam}} jugadores</p>
+                <p>{{ match.startTime | date : 'HH:mm'  }}-{{ match.endTime | date : 'HH:mm'  }} {{sports.playersNum(match)}}/{{match.numberOfTeams * match.playersPerTeam}} jugadores</p>
             </div>
             <md-button class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="sports.editMatch(match._id)">
                 <md-icon class="material-icons" aria-label="Actualizar fecha mínima">create</md-icon>
