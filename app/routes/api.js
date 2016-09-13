@@ -99,7 +99,7 @@ module.exports = function(app, express, passport) {
                                     expiresIn: "15d" // expires in 8 days
                                   });
 
-            res.cookie('cmayete', token);
+            res.cookie('cmayete', token,  { expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), httpOnly: true });
             next();
           }else{
             res.clearCookie('cmayete');
