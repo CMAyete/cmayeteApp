@@ -30,9 +30,7 @@ angular.module('sportsCtrl', ['ngMaterial',])
       data.data.startTime = new Date(data.data.startTime);
       data.data.endTime = new Date(data.data.endTime);
       vm.match = data.data;
-      console.log(vm.match);
     });
-    console.log(vm.match);
     vm.isUpdate = true;
     vm.sendButtonText = 'Actualizar';
   }
@@ -57,9 +55,9 @@ angular.module('sportsCtrl', ['ngMaterial',])
   }
 
   vm.addMatch = function(){
-  	console.log(typeof vm.match.playersList);
-  	console.log(vm.match);
-  	Sport.create(vm.match);
+  	Sport.create(vm.match).success(function(data){
+      $location.path("/sports");
+    });
   }
 
   vm.deleteMatch = function(id){
@@ -98,7 +96,9 @@ angular.module('sportsCtrl', ['ngMaterial',])
   }
 
   vm.editedMatch = function(){
-    Sport.updateSportByID(vm.match._id,vm.match);
+    Sport.updateSportByID(vm.match._id,vm.match).success(function(data){
+      $location.path("/sports");
+    });
   }
 
   vm.editMatch = function(match_id){

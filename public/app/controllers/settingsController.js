@@ -107,6 +107,7 @@ angular.module('settingsCtrl', ['ngMaterial',])
   vm.addNewUser = function(){
     Settings.create(vm.user).success(function(data){
       vm.sendButtonText = 'Enviado';
+      $location.path("/usersList");
     });
   }
 
@@ -121,7 +122,9 @@ angular.module('settingsCtrl', ['ngMaterial',])
   }
 
   vm.editedUser = function(){
-    Settings.updateUserByID(vm.user._id,vm.user);
+    Settings.updateUserByID(vm.user._id,vm.user).success(function(data){
+      $location.path("/usersList");
+    });
   }
 
 });
