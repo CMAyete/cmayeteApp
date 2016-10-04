@@ -103,6 +103,9 @@ angular.module('mealCtrl',[])
     if(!vm.mealAsked.id || (!vm.mealAsked.change && vm.mealAsked.change!=0) || !vm.mealAsked.date){
       return false;
     }
+    if(vm.userNumbersArray.indexOf(vm.mealAsked.id)==-1){
+      return false;
+    }
     if(vm.mealAsked.date < vm.currentDate){
       return false;
     }
@@ -166,6 +169,13 @@ angular.module('mealCtrl',[])
       });
   }
 
+  /* Retrieve an array of valid user numbers */
+
+  vm.allUserNumbers = function(){
+    Meal.getUserNumbers().success(function(data){
+      vm.userNumbersArray = data;
+    })
+  }
 
   /*
       Manage the minimum day for the input form

@@ -198,6 +198,19 @@ module.exports = function(app, express, passport) {
         });
     })
 
+  apiRouter.route('/allowedMealsNumber')
+    .get(function(req, res) {
+      User.distinct('number' , function(err,data){
+          if (err) res.send(err);
+            if (err){
+              return err;
+            }else{
+              // return the numbers array
+              return res.json(data);
+            }
+      });
+    })
+
   apiRouter.route('/lastdate')
 
   // update the date with this id

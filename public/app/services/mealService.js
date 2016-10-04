@@ -20,7 +20,6 @@ angular.module('MealService', [])
     return $http.get('/api/meals/' + pickDate);
   };
 
-
   // make a new change
   MealFactory.create = function(MealData) {
     return $http.post('/api/meals', MealData);
@@ -36,7 +35,10 @@ angular.module('MealService', [])
     return $http.get('/api/userDiets/' + id);
   };
 
-
+  // get user numbers array
+  MealFactory.getUserNumbers = function() {
+    return $http.get('/api/allowedMealsNumber/');
+  };
 
   // MEAL DATES LIMIT
   

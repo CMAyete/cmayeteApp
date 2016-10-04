@@ -1,5 +1,5 @@
 <md-content class="normal" flex>
-    <md-card>
+    <md-card ng-init="meals.allUserNumbers()">
         <md-card-content ng-init="meals.getLastDay()">
             <form name="mealsForm" name="myForm" ng-submit="meals.askMeal()" layout="column">
                 <div layout="row" id="mealreq">
