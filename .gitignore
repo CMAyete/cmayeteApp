@@ -7,3 +7,5 @@ app/config/config.js
 *.sublime-workspace
 
 public/app/env.js
+
+*.log
