@@ -21,7 +21,7 @@ module.exports = function(app, express, passport) {
   var apiRouter = express.Router();
 
 
-  apiRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile','email'] }));
+  apiRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile','email'],prompt : "select_account" }));
   apiRouter.get('/auth/google/callback', function(req, res, next){
   passport.authenticate('google', {session: false, successRedirect: express.hostname + '/meals',failureRedirect: express.hostname},
     function(err, user, info){
