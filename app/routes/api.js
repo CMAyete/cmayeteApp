@@ -127,7 +127,8 @@ module.exports = function(app, express, passport) {
       var meal = new Meal();            
       meal.id = req.body.id;            
       meal.change = req.body.change;    
-      meal.date = req.body.date;        
+      meal.date = req.body.date;
+      meal.reqDate = req.body.reqDate;        
       meal.save(function(err) {
         if (err) {
           // duplicate entry
@@ -155,7 +156,7 @@ module.exports = function(app, express, passport) {
   apiRouter.route('/meals/:meal_date')
     .get(function(req, res) {
       Meal.find({
-        date: req.params.meal_date
+        reqDate: req.params.meal_date
       },function(err, meals) {
           if (err) res.send(err);
             if (err){

@@ -43,7 +43,8 @@ angular.module('mealCtrl',[])
   vm.selectedRequest = 2;
 
   vm.mealAsked = {};
-  vm.mealAsked.date = new Date();  
+  vm.mealAsked.date = new Date();
+  vm.mealAsked.reqDate = new Date();  
   vm.mealAsked.doRepeat = 0;
   vm.mealButtontext = 'Enviar';
 
@@ -58,6 +59,7 @@ angular.module('mealCtrl',[])
       while(vm.mealAsked.date <= vm.mealAsked.endDate && promiseArray.length < 15){
         promiseArray.push(Meal.create(angular.copy(vm.mealAsked)));
         vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()+Number(vm.mealAsked.doRepeat)));
+        vm.mealAsked.reqDate = new Date(vm.mealAsked.reqDate.setDate(vm.mealAsked.reqDate.getDate()+Number(vm.mealAsked.doRepeat)));
       }
       $q.all(promiseArray)
         .then(
@@ -97,8 +99,12 @@ angular.module('mealCtrl',[])
   }
 
   vm.verifyMeal = function(){
+    vm.mealAsked.date.setHours(0,0,0,0);
+    vm.currentDate = new Date(vm.currentDate);
+    vm.mealAsked.reqDate = angular.copy(vm.mealAsked.date);
     if(vm.dayBeforeIDkeys.indexOf(vm.mealAsked.change) !== -1){
-      vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()-1));
+      console.log(vm.mealAsked);
+      vm.mealAsked.reqDate = new Date(vm.mealAsked.reqDate.setDate(vm.mealAsked.reqDate.getDate()-1));
     }
     if(!vm.mealAsked.id || (!vm.mealAsked.change && vm.mealAsked.change!=0) || !vm.mealAsked.date){
       return false;
@@ -106,11 +112,11 @@ angular.module('mealCtrl',[])
     if(vm.userNumbersArray.indexOf(vm.mealAsked.id)==-1){
       return false;
     }
-    if(vm.mealAsked.date < vm.currentDate){
+    if(vm.mealAsked.reqDate < vm.currentDate){
       return false;
     }
     if(vm.repeat){
-      if(vm.mealAsked.date >= vm.mealAsked.endDate){
+      if(vm.mealAsked.reqDate >= vm.mealAsked.endDate){
         return false;
       }
       if(vm.mealAsked.endDate < vm.currentDate){
@@ -126,12 +132,6 @@ angular.module('mealCtrl',[])
         vm.processing = false;
         data.map(function(e){
           e.date = new Date(e.date);
-          if(vm.dayBeforeIDkeys.indexOf(e.change) != -1){
-            e.showDate = new Date();
-            e.showDate = new Date(e.showDate.setDate(e.date.getDate()+1));
-          }else{
-            e.showDate = e.date;
-          }
         });
         vm.myRequests = data;
       });
