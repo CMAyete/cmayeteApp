@@ -128,16 +128,14 @@ module.exports = function(app, express, passport) {
       meal.id = req.body.id;            
       meal.change = req.body.change;    
       meal.date = req.body.date;
-      meal.reqDate = req.body.reqDate;        
+      meal.reqDate = req.body.reqDate;  
+      meal.moment = req.body.moment;      
       meal.save(function(err) {
         if (err) {
-          // duplicate entry
-          if (err.code == 11000) 
-            return res.json({ success: false, message: 'Esa comida ya está pedida'});
-          else 
-            return res.send(err);
+          res.sendStatus(409);
+        }else{
+          res.json({ message: 'Cambio registrado!' });
         }
-        res.json({ message: 'Cambio registrado!' });
       });
 
     })
