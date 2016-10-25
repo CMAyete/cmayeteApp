@@ -39,6 +39,9 @@ angular.module('mealCtrl',[])
   ];
 
   vm.dayBeforeIDkeys = [0,3,4,5,6,7];
+  vm.breakfastRequests = [0,3];
+  vm.lunchRequests = [1,4,5,6,7,8,9,10];
+  vm.dinnerRequests = [2,11];
 
   vm.selectedRequest = 2;
 
@@ -76,16 +79,17 @@ angular.module('mealCtrl',[])
         );
       }else{
         //Create the meal with special response to errors or success
-        Meal.create(vm.mealAsked)
-          .success(function() {
+        Meal.create(vm.mealAsked).then(function succesCallback(){
             vm.processing = false;
             vm.mealButtontext = 'Enviado';
+            console.log("SuccesC");
             vm.myMeals();
-          }).error(function() {
+        },function errorCallback(){
             vm.processing = false;
             vm.mealButtontext = 'Error';
             vm.mealError = true;
-          });
+            console.log("ErrorC");
+        });
       }
     }else{
       vm.mealButtontext = 'Error';
@@ -100,10 +104,8 @@ angular.module('mealCtrl',[])
 
   vm.verifyMeal = function(){
     vm.mealAsked.date.setHours(0,0,0,0);
-    vm.currentDate = new Date(vm.currentDate);
     vm.mealAsked.reqDate = angular.copy(vm.mealAsked.date);
     if(vm.dayBeforeIDkeys.indexOf(vm.mealAsked.change) !== -1){
-      console.log(vm.mealAsked);
       vm.mealAsked.reqDate = new Date(vm.mealAsked.reqDate.setDate(vm.mealAsked.reqDate.getDate()-1));
     }
     if(!vm.mealAsked.id || (!vm.mealAsked.change && vm.mealAsked.change!=0) || !vm.mealAsked.date){
@@ -123,7 +125,20 @@ angular.module('mealCtrl',[])
         return false;
       }
     }
+    vm.addMealMoment(vm.mealAsked);
     return true;
+  }
+
+  vm.addMealMoment = function(meal){
+    if(vm.breakfastRequests.indexOf(meal.change) !== -1){
+      meal.moment = 0;
+    }
+    if(vm.lunchRequests.indexOf(meal.change) !== -1){
+      meal.moment = 1;
+    }
+    if(vm.dinnerRequests.indexOf(meal.change) !== -1){
+      meal.moment = 2;
+    }
   }
 
   vm.myMeals = function() {
@@ -187,6 +202,7 @@ angular.module('mealCtrl',[])
 	    .success(function(data) {
 	    	vm.currentDate = new Date(data);
         vm.currentDate.setHours(0,0,0,0);
+        vm.currentDate = new Date(vm.currentDate);
 	  	});
   };
 
