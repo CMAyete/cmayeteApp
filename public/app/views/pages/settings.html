@@ -1,9 +1,6 @@
 <md-card>
     <md-card-content ng-init="settings.loadSettingsData()">
 
-<input class="ng-hide" id="input-file-id" type="file" custom-on-change="settings.processCSV"/>
-<label for="input-file-id" class="md-button md-raised md-hue-2 md-accent">Choose Files</label>
-
         <md-list>
             <md-list-item class="md-2-line" ng-click="settings.gotoUsersList()">
                 <div class="md-list-item-text" layout="column">
@@ -14,6 +11,12 @@
             <md-list-item class="noright md-2-line" ng-click="settings.gotoAddUser()">
                 <div class="md-list-item-text" layout="column">
                     <h3>Añadir nuevo usuario</h3>
+                </div>
+            </md-list-item>
+
+            <md-list-item class="noright md-2-line" hide show-gt-sm ng-click="settings.showUploadFileDialog()">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Añadir usuarios desde archivo</h3>
                 </div>
             </md-list-item>
 
@@ -55,3 +58,57 @@
         </md-list>
     </md-card-content>
 </md-card>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="uploadFileDialog">
+      <md-dialog layout-padding>
+        <div ng-show="!settings.uploadDone">
+            <h2>Añadir usuarios</h2>
+            <p>
+              Seleccione un archivo .csv con el formato adecuado en su ordernador.
+            </p>
+            <div layout="row">
+                <span flex></span>
+                <input class="ng-hide" id="input-file-id" type="file" custom-on-change="settings.processCSV"/>
+                <label flex for="input-file-id" class="md-button md-raised md-hue-2 md-primary">Abrir</label>
+                <span flex></span>                
+            </div>
+            <md-dialog-actions layout="row">
+              <span flex></span>
+              <md-button ng-click="settings.hideDial()">
+                Cerrar
+              </md-button>
+            </md-dialog-actions> 
+        </div>
+        <div ng-show="settings.uploadDone">
+            <div ng-show="settings.processing">
+                <h2>Añadiendo usuarios</h2>
+                <p>
+                  Por favor, espere mientras se procesa el archivo
+                </p>
+                <div layout="row" layout-align="space-around">
+                  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </div>
+            <div ng-show="!settings.processing && !settings.errors">
+                <h2>Añadir usuarios</h2>
+                <p>
+                  Se han añadido {{settings.newUsersNumber}} usuarios a la base de datos.
+                </p>
+                <md-dialog-actions layout="row">
+                  <span flex></span>
+                  <md-button ng-click="settings.hideDial()">
+                   Aceptar
+                  </md-button>
+                </md-dialog-actions> 
+            </div>
+            <div ng-show="!settings.processing && settings.errors">
+            <h2>Añadir usuarios</h2>
+            <p>
+              Se ha producido un error, no se han añadido los nuevos usuarios
+            </p>
+            </div>
+        </div>
+      </md-dialog>
+    </div>
+</div>
