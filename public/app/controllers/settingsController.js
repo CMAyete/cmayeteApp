@@ -127,4 +127,13 @@ angular.module('settingsCtrl', ['ngMaterial',])
     });
   }
 
+  vm.processCSV = function(event){
+    var file = event.target.files;
+    Papa.parse(file[0], {
+      complete: function(results) {
+          console.log("Finished:", results.data);
+      }
+    });
+  }
+
 });
