@@ -1,6 +1,6 @@
 angular.module('settingsCtrl', ['ngMaterial',])
 
-.controller('SettingsController', function($rootScope, $location, Settings,$window,$mdDialog) {
+.controller('SettingsController', function($rootScope, $location, Settings,$window,$mdDialog, $q) {
   var vm = this;
 
   vm.settingsData = {
@@ -25,6 +25,7 @@ angular.module('settingsCtrl', ['ngMaterial',])
   vm.numPages;
   vm.sendButtonText = 'Enviar';
   vm.isUpdate = false;
+  vm.parsedData;
 
   vm.gotoUsersList = function(){
     $location.path('/usersList');
@@ -131,9 +132,55 @@ angular.module('settingsCtrl', ['ngMaterial',])
     var file = event.target.files;
     Papa.parse(file[0], {
       complete: function(results) {
+          results.data.splice(0,1);
           console.log("Finished:", results.data);
+          console.log('Length: ', results.data.length);
+          vm.uploadMultipleUsers(results.data);
       }
     });
+  }
+
+  vm.uploadMultipleUsers = function(usersList){
+    var promiseArray = [];
+    var user = {};
+    usersList.map(function(e){
+      user.email = e[0];
+      user.number = Number(e[1]);
+      var i;
+      for(i=2;i<5;++i){
+        if(e[i]==="no"){
+          e[i] = false;
+        }else{
+          e[i] = true;
+        }
+      }
+      user = {
+        email: e[0],
+        number: Number(e[1]),
+        admin: e[2],
+        meals: e[3],
+        library: e[4],
+      };
+      if(e[5] === ""){
+        user.hasDiet = false;
+      }else{
+        user.hasDiet = true;
+        user.dietContent = e[5];
+      }
+      console.log(user.hasDiet);
+      promiseArray.push(Settings.create(angular.copy(user)));
+    });
+    $q.all(promiseArray)
+      .then(
+        function () {
+          vm.processing = false;
+          console.log('succes');
+        },
+        function () {
+          vm.processing = false;
+          console.log('Error');
+        }
+      );
   }
 
 });
