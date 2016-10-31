@@ -154,14 +154,29 @@ angular.module('mealCtrl',[])
   }
 
   vm.getMeals = function(date) {
+    vm.requests = [];
+    var d = new Date(date.getTime()-(1000*60*60*24));
     Meal.inDay(date)
       .success(function(data){
+        console.log(data);
         vm.processing = false;
         data.map(function(e){
           e = vm.checkDiets(e);
         });
         vm.requests = data;
       });
+    Meal.inDay(d).success(function(data){
+      data.map(function(e){
+        if(vm.dayBeforeIDkeys.indexOf(e.change) !== -1){
+          if(e.moment == 1){
+            e.change = 1;
+          }else if(e.moment == 2){
+            e.change = 2;
+          }
+          vm.requests.push(e);
+        }
+      });
+    });
   }
 
   // function to delete a change
@@ -179,7 +194,7 @@ angular.module('mealCtrl',[])
         //To avoid undefined warnings
         if(data[0]){
           if(data[0].hasDiet){
-            meal.dietMeal = true;
+            return meal.dietMeal = true;
           }
         }
       });
