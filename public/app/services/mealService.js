@@ -43,13 +43,23 @@ angular.module('MealService', [])
   // MEAL DATES LIMIT
   
   MealFactory.getCurrentDate = function() {
-    return $http.get('/api/lastdate/');
+    var lastDateID = "581a49db56fb4a0103b26088"
+    return $http.get('/api/lastdate/' + lastDateID);
   };
 
-  MealFactory.update = function() {
-    return $http.put('/api/lastdate/');
+  MealFactory.updateCurrentDate = function(date) {
+    var reqObject = {};
+    reqObject.timestamp = date.getTime();
+    reqObject.id = "581a49db56fb4a0103b26088";
+    return $http.put('/api/lastdate/', reqObject);
   };
-  
+
+  MealFactory.addCurrentDate = function(date) {
+    var reqObject = {};
+    reqObject.timestamp = date.getTime();
+    return $http.post('/api/lastdate/', reqObject);
+  };
+
   return MealFactory;
 
 });

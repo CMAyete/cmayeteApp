@@ -4,6 +4,7 @@ var Meal       = require('../models/meals');
 var User       = require('../models/users');
 var Book       = require('../models/books');
 var Sport      = require('../models/sports');
+var LastDate   = require('../models/lastDate');
 var jwt        = require('jsonwebtoken');
 //var config     = require('../config/config');
 
@@ -211,19 +212,42 @@ module.exports = function(app, express, passport) {
     })
 
   apiRouter.route('/lastdate')
+    .post(function(req, res) {
+      var date = new LastDate();            
+      date.date = req.body.timestamp;  
+      date.save(function(err) {
+        if (err) {
+          res.sendStatus(500);
+        }else{
+          res.sendStatus(200);
+        }
+      });
+    })
+    .put(function(req, res) {
+      LastDate.findOneAndUpdate({_id: req.body.id},{
+        date: req.body.timestamp,
+      },function(err, data) {
+        if (err){
+          return err;
+        }else{
+          return res.json(data);
+        }
+      });
+    });
 
-  // update the date with this id
-  .put(function(req, res) {
-        minimumMealsDay = new Date(new Date().setDate(new Date().getDate()+1));
-        //process.env.MINDAY = minimumMealsDay;
-        //console.log(MINDAY);
-        // return a message
-        res.json(minimumMealsDay);
-  })  
-
-  .get(function(req, res) {
-    return res.json(minimumMealsDay);
-  });
+  apiRouter.route('/lastdate/:date_id')
+    .get(function(req, res) {
+      LastDate.find({
+        _id: req.params.date_id
+      },function(err, lastdate) {
+          if (err) res.send(err);
+            if (err){
+              return err;
+            }else{
+              return res.json(lastdate);
+            }
+        });
+    })
 
   // User Management section
   // ----------------------------------------------------

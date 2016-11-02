@@ -216,9 +216,7 @@ angular.module('mealCtrl',[])
   vm.getLastDay = function() {
 	  Meal.getCurrentDate()
 	    .success(function(data) {
-	    	vm.currentDate = new Date(data);
-        vm.currentDate.setHours(0,0,0,0);
-        vm.currentDate = new Date(vm.currentDate);
+	    	vm.currentDate = data[0].date;
 	  	});
   };
 
@@ -227,10 +225,12 @@ angular.module('mealCtrl',[])
   vm.NewDate = function() {
     vm.processing = true;
     vm.message = '';
-    Meal.update()
+    date = new Date(new Date().setDate(new Date().getDate()+1));
+    date.setHours(0,0,0,0);
+    Meal.updateCurrentDate(date)
       .success(function(data) {
         vm.processing = false;
-        vm.currentDate = data;
+        vm.currentDate = date;
       });
   };
 });
