@@ -8,15 +8,26 @@ angular.module('SettingsService', [])
 
   // Get initial data count
   SettingsFactory.prepareData = function() {
-    return $http.get('/api/settings');
+    var config = { params:{
+                    id: "581a49db56fb4a0103b26088"
+                  }};
+    return $http.get('/api/settings', config);
   };
 
   // Clear collection data
   SettingsFactory.clearCollection = function(collection) {
-    var config = { params:{
-                chosen: collection
-              }};
-    return $http.delete('/api/settings/', config);
+    if(collection == 'LastDate'){
+      var reqObject = {};
+      reqObject.timestamp = new Date('01/01/2000');
+      reqObject.timestamp = reqObject.timestamp.getTime();
+      reqObject.id = "581a49db56fb4a0103b26088";
+      return $http.put('/api/lastdate/', reqObject);
+    }else{
+      var config = { params:{
+                  chosen: collection
+                }};
+      return $http.delete('/api/settings/', config);
+    }
   };
 
   // get all users
@@ -44,7 +55,6 @@ angular.module('SettingsService', [])
 
   // Update user by ID Number
   SettingsFactory.updateUserByID = function(id, userData) {
-    console.log(userData);
     return $http.put('/api/users/' + id, userData);
   };
 

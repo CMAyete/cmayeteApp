@@ -381,8 +381,19 @@ module.exports = function(app, express, passport) {
                   }
                 });
       }
-      Promise.all([countMeals(), countUsers(), countBooks(), countSports()]).then(function(){
-        response.lastMealsDate = minimumMealsDay;
+      function getDate(){
+        return LastDate.find({
+          _id: req.query.id
+        },function(err, lastdate) {
+            if (err) res.send(err);
+              if (err){
+                return err;
+              }else{
+                response.lastMealsDate = lastdate[0].date;
+              }
+        });
+      }
+      Promise.all([countMeals(), countUsers(), countBooks(), countSports(), getDate()]).then(function(){
         res.json(response);
       });
     })
@@ -412,8 +423,6 @@ module.exports = function(app, express, passport) {
             res.json(data);
           }
         });
-      }else if(collection == 'LastDate'){
-        minimumMealsDay = new Date('01/01/2000');
       }else if(collection == 'Sport'){
         Sport.remove({},function(err,data){
           if(err){
