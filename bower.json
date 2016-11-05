@@ -25,5 +25,8 @@
     "angular-jwt": "^0.1.7",
     "angular-filter": "0.5.9",
     "moment": "^2.10.6"
+  },
+  "resolutions": {
+    "angular": "1.5.7"
   }
 }
