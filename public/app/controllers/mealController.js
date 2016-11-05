@@ -156,7 +156,6 @@ angular.module('mealCtrl',[])
     var d = new Date(date.getTime()-(1000*60*60*24));
     Meal.inDay(date)
       .success(function(data){
-        console.log(data);
         vm.processing = false;
         data.map(function(e){
           e = vm.checkDiets(e);
