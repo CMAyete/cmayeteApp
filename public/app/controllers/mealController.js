@@ -82,13 +82,11 @@ angular.module('mealCtrl',[])
         Meal.create(vm.mealAsked).then(function succesCallback(){
             vm.processing = false;
             vm.mealButtontext = 'Enviado';
-            console.log("SuccesC");
             vm.myMeals();
         },function errorCallback(){
             vm.processing = false;
             vm.mealButtontext = 'Error';
             vm.mealError = true;
-            console.log("ErrorC");
         });
       }
     }else{
@@ -147,7 +145,6 @@ angular.module('mealCtrl',[])
         vm.processing = false;
         data.map(function(e){
           e.date = new Date(e.date);
-          e.reqDate = new Date(e.reqDate);
         });
         vm.myRequests = data;
       });
@@ -216,7 +213,7 @@ angular.module('mealCtrl',[])
   vm.getLastDay = function() {
 	  Meal.getCurrentDate()
 	    .success(function(data) {
-	    	vm.currentDate = data[0].date;
+        vm.currentDate = new Date(data[0].date);
 	  	});
   };
 
