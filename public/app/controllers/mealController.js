@@ -145,6 +145,7 @@ angular.module('mealCtrl',[])
         vm.processing = false;
         data.map(function(e){
           e.date = new Date(e.date);
+          e.reqDate = new Date(e.reqDate);
         });
         vm.myRequests = data;
       });
