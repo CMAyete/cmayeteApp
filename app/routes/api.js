@@ -29,7 +29,7 @@ module.exports = function(app, express, passport) {
       if (err){
         return next(err);
       }
-      if(user == defaultUserMail){
+      if(user.toLowerCase() === defaultUserMail.toLowerCase()){
         var token = jwt.sign({
                               number:55,
                               isLogged:true,
@@ -46,7 +46,7 @@ module.exports = function(app, express, passport) {
         res.redirect('/meals');
       }else{
         var userData;
-        User.findOne({'email':user},function(err,userfound){
+        User.findOne({'email':user.toLowerCase()},function(err,userfound){
           if(userfound){
             userData = userfound;
                         var token = jwt.sign({
