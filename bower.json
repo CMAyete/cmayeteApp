@@ -16,10 +16,14 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.7",
-    "angular-material": "^1.0.9",
-    "angular-route": "^1.5.7",
-    "angular-animate": "^1.5.7",
-    "papaparse": "^4.1.2"
+    "angular": "1.5.7",
+    "angular-material": "1.1.0",
+    "angular-route": "1.5.7",
+    "angular-animate": "1.5.7",
+    "papaparse": "^4.1.2",
+    "angular-cookies": "1.5.7",
+    "angular-jwt": "^0.1.7",
+    "angular-filter": "0.5.9",
+    "moment": "^2.10.6"
   }
 }
