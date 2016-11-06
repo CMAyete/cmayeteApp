@@ -176,7 +176,7 @@ angular.module('settingsCtrl', ['ngMaterial',])
           }
         }
         user = {
-          email: e[0],
+          email: e[0].toLowerCase(),
           number: Number(e[1]),
           admin: e[2],
           meals: e[3],
