@@ -4,6 +4,7 @@
 // Packages -----------------------------
 var express    = require('express');      // call express
 var app        = express();               // define our app using express
+var helmet     = require('helmet')
 var bodyParser = require('body-parser');  // get body-parser
 var morgan     = require('morgan');       // used to see requests
 var mongoose   = require('mongoose');
@@ -26,6 +27,18 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
   next();
 });
+
+app.use(helmet());
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+		styleSrc: ["'self'", 'netdna.bootstrapcdn.com','ajax.googleapis.com','fonts.googleapis.com',"'unsafe-inline'"],
+		fontSrc: ['netdna.bootstrapcdn.com','fonts.gstatic.com'],
+		imgSrc: ["'self'", 'data:'],
+		connectSrc: ["'self'", 'www.googleapis.com']
+  }
+}))
 
 require('./app/config/passport')(passport); // pass passport for configuration
 
