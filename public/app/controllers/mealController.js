@@ -57,14 +57,19 @@ angular.module('mealCtrl',[])
   vm.mealButtontext = '';
   if(vm.verifyMeal()){
     if(vm.repeat){
+      vm.pushArray = true;
       var promiseArray = [];
       var i=0;
       while(vm.mealAsked.date <= vm.mealAsked.endDate && promiseArray.length < 15){
         promiseArray.push(Meal.create(angular.copy(vm.mealAsked)));
         vm.mealAsked.date = new Date(vm.mealAsked.date.setDate(vm.mealAsked.date.getDate()+Number(vm.mealAsked.doRepeat)));
         vm.mealAsked.reqDate = new Date(vm.mealAsked.reqDate.setDate(vm.mealAsked.reqDate.getDate()+Number(vm.mealAsked.doRepeat)));
+        if(!vm.verifyMeal()){
+          vm.pushArray = false;
+        }
       }
-      $q.all(promiseArray)
+      if(!vm.pushArray){
+        $q.all(promiseArray)
         .then(
           function () {
             vm.processing = false;
@@ -77,27 +82,28 @@ angular.module('mealCtrl',[])
             vm.mealError = true;
           }
         );
-      }else{
-        //Create the meal with special response to errors or success
-        Meal.create(vm.mealAsked).then(function succesCallback(){
-            vm.processing = false;
-            vm.mealButtontext = 'Enviado';
-            vm.myMeals();
-        },function errorCallback(){
-            vm.processing = false;
-            vm.mealButtontext = 'Error';
-            vm.mealError = true;
-        });
       }
     }else{
-      vm.mealButtontext = 'Error';
-      vm.mealError = true;
+      //Create the meal with special response to errors or success
+      Meal.create(vm.mealAsked).then(function succesCallback(){
+          vm.processing = false;
+          vm.mealButtontext = 'Enviado';
+          vm.myMeals();
+      },function errorCallback(){
+          vm.processing = false;
+          vm.mealButtontext = 'Error';
+          vm.mealError = true;
+      });
     }
-    // Get the button back to normal  
-    $timeout(function(){
-    vm.mealButtontext = 'Enviar';
-    vm.mealError = false;
-    },3000);
+  }else{
+    vm.mealButtontext = 'Error';
+    vm.mealError = true;
+  }
+  // Get the button back to normal  
+  $timeout(function(){
+  vm.mealButtontext = 'Enviar';
+  vm.mealError = false;
+  },3000);
   }
 
   vm.verifyMeal = function(){
