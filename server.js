@@ -50,7 +50,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect(db); 
 
 // set static files location
-app.use(express.static(__dirname + '/public'));
+//Commented as static files are being served through NGINX
+//app.use(express.static(__dirname + '/public'));
+
 app.use(passport.initialize());
 
 // API Routes 
