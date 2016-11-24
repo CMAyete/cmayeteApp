@@ -28,5 +28,6 @@
     "gulp-concat": "^2.6.0",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-uglify": "^1.5.4",
+    "sw-precache": "^4.2.3"
   }
 }
