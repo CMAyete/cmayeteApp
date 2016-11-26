@@ -36,7 +36,8 @@ app.use(helmet.contentSecurityPolicy({
 		styleSrc: ["'self'", 'https://netdna.bootstrapcdn.com','https://ajax.googleapis.com','https://fonts.googleapis.com',"'unsafe-inline'"],
 		fontSrc: ['https://netdna.bootstrapcdn.com','https://fonts.gstatic.com'],
 		imgSrc: ["'self'", 'data:'],
-		connectSrc: ["'self'", 'https://www.googleapis.com']
+		connectSrc: ["'self'", 'https://www.googleapis.com'],
+    scriptSrc: ["'self'"],
   }
 }))
 
