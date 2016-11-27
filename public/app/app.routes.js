@@ -141,6 +141,17 @@ angular.module('app.routes', ['ngRoute'])
       }
     })
 
+    //Offline route for SW
+    .when('/offline', {
+      templateUrl : 'app/views/pages/offline.html',
+        controller  : 'MainController',
+          controllerAs: 'login',
+      data: {
+        reqPermissions: 'isLogged',
+        redirect: '/offline',
+      }
+    })
+
 
     .otherwise({ redirectTo: '/meals'})
 

@@ -20,7 +20,9 @@ gulp.task('generate-service-worker', function(callback) {
 
   swPrecache.write(path.join(rootDir, 'sw.js'), {
     staticFileGlobs: [
+    									rootDir + '/install-sw.js',
     									rootDir + '/{app,img}/**/*.{js,html,css,png,jpg,gif}',
+    									rootDir + '/assets/img/*.{png,jpg,gif}',
     									rootDir + '/assets/css/style.min.css',
     									rootDir + '/dist/app.js',
     									rootDir + '/assets/libs/angular/angular.min.js',
@@ -37,6 +39,11 @@ gulp.task('generate-service-worker', function(callback) {
     									rootDir + '/assets/libs/angular-messages/angular-messages.min.js',
     									rootDir + '/assets/svg-assets-cache.js',
     								 ],
-    stripPrefix: rootDir
+    stripPrefix: rootDir,
+    dynamicUrlToDependencies: {
+    	'/offline': ['public/app/views/index.html', 'public/app/views/pages/offline.html'],
+    },
+    ignoreUrlParametersMatching: [/.*\/api.*/],
+    navigateFallback: '/offline',
   }, callback);
 });
