@@ -28,14 +28,36 @@ angular.module('cmayete', ['ngAnimate', 'ngMessages', 'app.routes', 'AuthService
     // if route requires auth and user is not logged in
     var authorizedRoles = next.data.reqPermissions;
     var redirect = next.data.redirect;
-    if (next.originalPath != '/login' && $rootScope.userData[authorizedRoles] != true) {
-      event.preventDefault();
-      $location.path(redirect);
-    }else if(next.originalPath == '/login' && $rootScope.userData[authorizedRoles] == true){
-      event.preventDefault();
-      $location.path(redirect);
+    if(next.originalPath != '/offline'){
+      if (next.originalPath != '/login' && $rootScope.userData[authorizedRoles] != true) {
+        event.preventDefault();
+        $location.path(redirect);
+      }else if(next.originalPath == '/login' && $rootScope.userData[authorizedRoles] == true){
+        event.preventDefault();
+        $location.path(redirect);
+      }
+    }else{
+      $rootScope.userData.isLogged = false;
     }
   });
+})
+
+// Check for network availability (for PWA)
+.run(function($window, $rootScope, $location) {
+      $rootScope.online = navigator.onLine;
+      $window.addEventListener("offline", function() {
+        $rootScope.$apply(function() {
+          $rootScope.online = false;
+          $location.path('/offline');
+        });
+      }, false);
+
+      $window.addEventListener("online", function() {
+        $rootScope.$apply(function() {
+          $rootScope.online = true;
+          $location.path('/meals');
+        });
+      }, false);
 })
 
 /* 
