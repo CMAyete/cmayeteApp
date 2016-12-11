@@ -37,11 +37,11 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["/assets/css/style.min.css","6c8764efe5439df7d48f95a3c617fb29"],["/assets/img/bgl.jpg","fe5900612085293b245fd01eda98fdcb"],["/assets/img/logoBN.jpg","9c74b8c14d90bfc18f6d6041143fd8af"],["/assets/libs/angular-animate/angular-animate.min.js","769824f432861032136fd2b30e030446"],["/assets/libs/angular-aria/angular-aria.min.js","ae0ea951149b333407f37b42eb627bb4"],["/assets/libs/angular-cookies/angular-cookies.min.js","35d5aed78cd486034ab0c23a2ec4500a"],["/assets/libs/angular-filter/dist/angular-filter.min.js","90eedac7a84538e0651f78e96723bf98"],["/assets/libs/angular-jwt/dist/angular-jwt.min.js","609a67ff0018cb71942dc4c78ac1a72c"],["/assets/libs/angular-material/angular-material.min.css","06d4a45783f8ec3d08888d57a208decd"],["/assets/libs/angular-material/angular-material.min.js","df4f4753b13c2c1223787fc732e599d7"],["/assets/libs/angular-messages/angular-messages.min.js","3a9f7c531e42e5562b0a853ea72fa02a"],["/assets/libs/angular-route/angular-route.min.js","1e0fb866bf0d7dc17922e7400e345e20"],["/assets/libs/angular/angular.min.js","a66e673119c25eed3f5a3144345988bc"],["/assets/libs/moment/min/moment.min.js","9a3cfc601c6fbc191f2ad738f5ea77bd"],["/assets/libs/papaparse/papaparse.min.js","b3df6cf7856d8e3ffdb376790dde1ff2"],["/assets/svg-assets-cache.js","0fd8f50db11f6eb435bc658f3936f0be"],["/dist/app.js","7daea99727da3daacc81479df25c211c"],["/install-sw.js","f4b708bf751ab0028297a88b9b5ab700"],["/offline","cede4e09a259fb1b19f1802e482e2165"]];
+var precacheConfig = [["/app/app.js","63d4ce8af9881df4388b9d277f8a09d1"],["/app/app.routes.js","0fb5b14a6479b2465fbdf8dbb7789a6d"],["/app/controllers/booksController.js","52ef9b0dd47aa1ef0d7232ef994e323f"],["/app/controllers/eventsController.js","e9b0522128d9215872416e224dee66a0"],["/app/controllers/mainController.js","d5309767d03b0d27b97444a64e09aefc"],["/app/controllers/mealController.js","ddaeaa108c3216bbd516eb6dcf6f6d52"],["/app/controllers/settingsController.js","0624e53cb1629bf11afdae0bdc807f88"],["/app/controllers/sportsController.js","a5c7ac64474a0cc1ffd6d7302a5bf18b"],["/app/services/authService.js","7b8ecaca213c416625c9a504499a4611"],["/app/services/bookService.js","6ac3524286dc082979ac57b672fb9375"],["/app/services/eventsService.js","0b87de79ef996bd9466a00947860a5bb"],["/app/services/mealService.js","4ecdc3ab3e820bd324eeba8d27889fff"],["/app/services/settingsService.js","0d52957d695638266769f47c24d2120f"],["/app/services/sportsService.js","25a6fc9c543134809e7e5c477af921e1"],["/app/views/index.html","b42c1d6f3b412bb43a048e902852d236"],["/app/views/pages/books.html","14122f696a9e6eaa8cdffab662448a48"],["/app/views/pages/booksTaken.html","62bf3035ad811ceb5e1c975c9e8aa8cd"],["/app/views/pages/events.html","32e1eab68231a0cfc8b29b62886e02ff"],["/app/views/pages/login.html","75a44dec77b3d50cc90cdb6c45e2764e"],["/app/views/pages/mealRequests.html","89cd2890240110868796fcbe90b06937"],["/app/views/pages/meals.html","ae2cc47f9a1a6a2013ef508434b822a5"],["/app/views/pages/myBooks.html","9a2de41efa8e4267990426e4ce602435"],["/app/views/pages/newBook.html","6b9ca02f4f38663db67e0694d91e4b75"],["/app/views/pages/newSport.html","f16e1fa6cd3fbfd6d782c18605340631"],["/app/views/pages/newUser.html","2ca6df1d4f0c4427d51d18be4c82dc07"],["/app/views/pages/offline.html","f9f8e1b19462420aec65c5fea3d5d201"],["/app/views/pages/settings.html","9a2653c9aee175e9ddfae32537889b0a"],["/app/views/pages/sports.html","af826054f9bafb3bc0185cf949e093aa"],["/app/views/pages/usersList.html","2c9839b552f4772d97f32f63baaec88a"],["/assets/css/style.min.css","6c8764efe5439df7d48f95a3c617fb29"],["/assets/img/bgl.jpg","fe5900612085293b245fd01eda98fdcb"],["/assets/img/logoBN.jpg","9c74b8c14d90bfc18f6d6041143fd8af"],["/assets/libs/angular-animate/angular-animate.min.js","769824f432861032136fd2b30e030446"],["/assets/libs/angular-aria/angular-aria.min.js","ae0ea951149b333407f37b42eb627bb4"],["/assets/libs/angular-cookies/angular-cookies.min.js","35d5aed78cd486034ab0c23a2ec4500a"],["/assets/libs/angular-filter/dist/angular-filter.min.js","90eedac7a84538e0651f78e96723bf98"],["/assets/libs/angular-jwt/dist/angular-jwt.min.js","609a67ff0018cb71942dc4c78ac1a72c"],["/assets/libs/angular-material/angular-material.min.css","06d4a45783f8ec3d08888d57a208decd"],["/assets/libs/angular-material/angular-material.min.js","df4f4753b13c2c1223787fc732e599d7"],["/assets/libs/angular-messages/angular-messages.min.js","3a9f7c531e42e5562b0a853ea72fa02a"],["/assets/libs/angular-route/angular-route.min.js","1e0fb866bf0d7dc17922e7400e345e20"],["/assets/libs/angular/angular.min.js","a66e673119c25eed3f5a3144345988bc"],["/assets/libs/moment/min/moment.min.js","9a3cfc601c6fbc191f2ad738f5ea77bd"],["/assets/libs/papaparse/papaparse.min.js","b3df6cf7856d8e3ffdb376790dde1ff2"],["/assets/svg-assets-cache.js","0fd8f50db11f6eb435bc658f3936f0be"],["/dist/app.js","69ef1b45736d0ce99616319a6ba3919b"],["/install-sw.js","f4b708bf751ab0028297a88b9b5ab700"],["/offline","cede4e09a259fb1b19f1802e482e2165"]];
 var cacheName = 'sw-precache-v2--' + (self.registration ? self.registration.scope : '');
 
 
-var ignoreUrlParametersMatching = [/^utm_/];
+var ignoreUrlParametersMatching = [/.*\/api.*/];
 
 
 
@@ -178,11 +178,6 @@ self.addEventListener('fetch', function(event) {
     // handlers a chance to handle the request if need be.
     var shouldRespond;
 
-    console.log(event.request.url);
-    if(event.request.url == 'http://127.0.0.1:8080/login'){
-      console.log('Hi');
-      return event.respondWith(fetch(event.request));
-    };
     // First, remove all the ignored parameter and see if we have that URL
     // in our cache. If so, great! shouldRespond will be true.
     var url = stripIgnoredUrlParameters(event.request.url, ignoreUrlParametersMatching);
@@ -193,17 +188,6 @@ self.addEventListener('fetch', function(event) {
     var directoryIndex = 'index.html';
     if (!shouldRespond && directoryIndex) {
       url = addDirectoryIndex(url, directoryIndex);
-      shouldRespond = urlsToCacheKeys.has(url);
-    }
-
-    // If shouldRespond is still false, check to see if this is a navigation
-    // request, and if so, whether the URL matches navigateFallbackWhitelist.
-    var navigateFallback = '/offline';
-    if (!shouldRespond &&
-        navigateFallback &&
-        (event.request.mode === 'navigate') &&
-        isPathWhitelisted([], event.request.url)) {
-      url = new URL(navigateFallback, self.location).toString();
       shouldRespond = urlsToCacheKeys.has(url);
     }
 
