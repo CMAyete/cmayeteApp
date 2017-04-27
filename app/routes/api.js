@@ -20,6 +20,27 @@ var GCalendarAPI = process.env.GCALKEY || config.gCalApiKey;
 module.exports = function(app, express, passport) {
 
   var apiRouter = express.Router();
+  apiRouter.route('/books')
+    .get(function(req, res) {
+      var exp = req.query.search;
+      var currentPage = req.query.page-1;
+      Book.find( { $or: [
+                    {"titulo":    { "$regex": exp, "$options": "i" }}, 
+                    {"fullAuthor":    { "$regex": exp, "$options": "i" }}, 
+                  ]},function(err, books) {
+        if (err){
+          return err;
+        }else{
+          Book.find({ $or: [
+                      {"titulo":    { "$regex": exp, "$options": "i" }}, 
+                      {"fullAuthor":    { "$regex": exp, "$options": "i" }}, 
+                    ]}).count().exec(function (err,count) {
+                    var nump = Math.ceil(count/10);
+                    return res.json({books,nump});
+          })
+        }
+      }).sort({numero: -1}).skip(currentPage*10).limit(10); //Remove use of SKIP, see $lt
+    });
 
 
   apiRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile','email'],prompt : "select_account" }));

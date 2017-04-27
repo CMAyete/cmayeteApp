@@ -29,12 +29,17 @@ angular.module('cmayete', ['ngAnimate', 'ngMessages', 'app.routes', 'AuthService
     var authorizedRoles = next.data.reqPermissions;
     var redirect = next.data.redirect;
     if(next.originalPath != '/offline'){
-      if (next.originalPath != '/login' && $rootScope.userData[authorizedRoles] != true) {
-        event.preventDefault();
-        $location.path(redirect);
-      }else if(next.originalPath == '/login' && $rootScope.userData[authorizedRoles] == true){
-        event.preventDefault();
-        $location.path(redirect);
+      if(next.originalPath == '/books' && $rootScope.userData.isLogged == false ){
+        $rootScope.userData.isLogged = true;
+        $rootScope.userData.admin = false;
+      }else{
+        if (next.originalPath != '/login' && $rootScope.userData[authorizedRoles] != true) {
+          event.preventDefault();
+          $location.path(redirect);
+        }else if(next.originalPath == '/login' && $rootScope.userData[authorizedRoles] == true){
+          event.preventDefault();
+          $location.path(redirect);
+        }
       }
     }else{
       $rootScope.userData.isLogged = false;
