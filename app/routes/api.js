@@ -464,12 +464,12 @@ module.exports = function(app, express, passport) {
       var book = new Book();
       book.numero = req.body.numero;
       book.letra = req.body.letra;
-      book.apellidos = req.body.apellido;
+      book.apellidos = req.body.apellidos;
       book.nombre = req.body.nombre;
       book.titulo = req.body.titulo;
       book.idioma = req.body.idioma;
       book.lugar = req.body.lugar;
-      book.fullAuthor = req.body.nombre + ' ' + req.body.apellido;
+      book.fullAuthor = req.body.nombre + ' ' + req.body.apellidos;
       book.save(function(err){
         if(err){
           if (err.code == 11000) 
@@ -527,7 +527,7 @@ module.exports = function(app, express, passport) {
         titulo: req.body.titulo,
         idioma: req.body.idioma,
         lugar: req.body.lugar,
-        fullAuthor: req.body.nombre + ' ' + req.body.apellido,
+        fullAuthor: req.body.nombre + ' ' + req.body.apellidos,
       },function(err, data) {
         if (err){
           return err;
