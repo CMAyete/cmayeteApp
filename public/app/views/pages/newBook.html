@@ -19,7 +19,7 @@
         <md-item-template>
           <span md-highlight-text="books.search.apellidos" md-highlight-flags="^i">{{item}}</span>
         </md-item-template>
-        <md-not-found>
+        <md-not-found ng-click="books.newData(books.search.apellidos,'apellidos')">
           No hay ningún autor con el apellido "{{books.search.apellidos}}".
           <a ng-click="books.newData(books.search.apellidos,'apellidos')">Añadir nuevo</a>
         </md-not-found>
@@ -38,7 +38,7 @@
         <md-item-template>
           <span md-highlight-text="books.search.nombre" md-highlight-flags="^i">{{item}}</span>
         </md-item-template>
-        <md-not-found>
+        <md-not-found ng-click="books.newData(books.search.nombre,'nombre')">
           No hay ningún autor con el nombre "{{books.search.nombre}}".
           <a ng-click="books.newData(books.search.nombre,'nombre')">Añadir nuevo</a>
         </md-not-found>
@@ -57,7 +57,7 @@
         <md-item-template>
           <span md-highlight-text="books.search.titulo" md-highlight-flags="^i">{{item}}</span>
         </md-item-template>
-        <md-not-found>
+        <md-not-found ng-click="books.newData(books.search.titulo,'titulo')">
           No hay ningún libro con el titulo "{{books.search.titulo}}".
           <a ng-click="books.newData(books.search.titulo,'titulo')">Añadir nuevo</a>
         </md-not-found>
@@ -76,7 +76,7 @@
         <md-item-template>
           <span md-highlight-text="books.search.idioma" md-highlight-flags="^i">{{item}}</span>
         </md-item-template>
-        <md-not-found>
+        <md-not-found ng-click="books.newData(books.search.idioma,'idioma')">
           No hay ningún libro escrito en "{{books.search.idioma}}".
           <a ng-click="books.newData(books.search.idioma,'idioma')">Añadir nuevo</a>
         </md-not-found>
@@ -95,7 +95,7 @@
         <md-item-template>
           <span md-highlight-text="books.search.lugar" md-highlight-flags="^i">{{item}}</span>
         </md-item-template>
-        <md-not-found>
+        <md-not-found ng-click="books.newData(books.search.lugar,'lugar')">
           No hay ningún guardado en "{{books.search.lugar}}".
           <a ng-click="books.newData(books.search.lugar,'lugar')">Añadir nuevo</a>
         </md-not-found>
