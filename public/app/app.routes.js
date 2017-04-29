@@ -153,7 +153,7 @@ angular.module('app.routes', ['ngRoute'])
     })
 
 
-    .otherwise({ redirectTo: '/meals'})
+    .otherwise({ redirectTo: '/books'})
 
   $locationProvider.html5Mode(true);
 
