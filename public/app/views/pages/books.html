@@ -17,7 +17,7 @@
                 <div class="md-list-item-text" layout="column">
                     <h3>{{ book.titulo }}</h3>
                     <h4>{{ book.apellidos }}, {{ book.nombre }}</h4>
-                    <p>{{ book.idioma }}</p>
+                    <p>{{ book.lugar }}. {{ book.idioma }}</p>
                 </div>
                 <md-button class="md-icon-button" ng-if="$root.userData.library == true" aria-label="Borrar" style="margin-top:16px;" ng-click="books.editBook(book._id)">
                     <md-icon class="material-icons" aria-label="Actualizar fecha mínima">create</md-icon>
