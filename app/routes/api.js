@@ -54,9 +54,14 @@ module.exports = function(app, express, passport) {
           }else{
             var model = mongoXlsx.buildDynamicModel(books);
             mongoXlsx.mongoData2Xlsx(books, model, function(err, books) {
-              //console.log('File saved at:', books.fullPath);
+              console.log('File saved at:', books.fullPath);
               res.download(books.fullPath, 'biblioteca.xls', function(err){
-                fs.unlink(books.fullPath)
+              if(err){
+               console.log(err);              
+              }else{
+              
+              fs.unlink(books.fullPath)
+              }
               });
             });
             //return res.json(books);
