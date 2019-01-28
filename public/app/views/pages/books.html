@@ -5,9 +5,11 @@
                 <label>Título o autor</label>
                 <input ng-model="books.searchAll" ng-change="books.getBooks()" ng-model-options="{debounce: 500}">
             </md-input-container>
+            <!--
             <div style="margin-top:10px;">
                 <md-button class="md-raised md-primary" href="/myBooks">Mis libros</md-button>
             </div>
+            -->
         </div>
         <md-list>
             <p ng-if="books.books.length == 0">Lo sentimos, ningún libro coincide con el criterio de búsqueda</p>
@@ -23,9 +25,11 @@
                 <md-button ng-if="!book.enUso" class="md-icon-button" aria-label="Borrar" style="margin-top:16px;" ng-click="books.takeBook(book._id)">
                     <md-icon class="material-icons" aria-label="Actualizar fecha mínima">move_to_inbox</md-icon>
                 </md-button>
+                <!--
                 <md-button ng-if="book.enUso" class="md-icon-button" ng-disabled="true" aria-label="Usuario" style="margin-top:16px;">
                     {{ book.enUso }}
                 </md-button>
+                -->
             </md-list-item>
             <div ng-if="books.books.length != 0">
               <md-button class="md-raised md-primary" ng-disabled="books.currentPage == 1" ng-click="books.prevPressed()">Anterior</md-button>
